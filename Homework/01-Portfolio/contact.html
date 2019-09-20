@@ -5,6 +5,42 @@
     <!-- Css file links here: -->
     <link rel="stylesheet" href="Assets/Css/reset.css">
     <link rel="stylesheet" href="Assets/Css/style.css">
+
+    <style>
+        form {
+            margin: 20px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.5em;
+            color: #cccccc;
+            font-family: 'Georgia', Times, 'Times New Roman', serif;
+        }
+        #nameInput, #emailInput, #messageInput {
+            width: 100%;
+            padding: 5px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            border: 1px solid #cccccc;
+        }
+        #messageInput {
+            height: 200px;
+            box-sizing: border-box;
+            font-size: 16px;
+            resize: yes;
+        }
+        #sendMsg {
+            background-color:#4aaaa5;
+            color: white;
+            border: none;
+            margin: 10px 0px 0px 0px;
+            size: 50px;
+            text-align:center;
+            font-size: 20px;
+            line-height: 1.5em;
+        }
+    
+    </style>
 </head>
 
 <body>
@@ -20,10 +56,24 @@
 
     </header>
 
-    <Main></Main>
+    <Main>
+        <h2>Contact</h2>
+        <hr>
+        <form>
+            <p>Name</p>
+            <input id=nameInput></input>
+            <p>Email</p>
+            <input id=emailInput></input>
+            <p >Message</p>
+            <textarea id=messageInput></textarea>
+            <button id=sendMsg>Submit</button>
+        </form>
+
+        
+    </Main>
 
     <footer>
-        
+        Copyright ©
     </footer>
 
 </body>
