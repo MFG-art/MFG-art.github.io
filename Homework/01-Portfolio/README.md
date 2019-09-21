@@ -4,24 +4,20 @@ The purpose of this project is to display my abilities and projects to curious e
 
 ## Installation
 
-What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
+To use, just access this website with a web browser. Chrome is recommended for best experience.
 
 
 ## Usage 
-
-Provide instructions and examples for use. Include screenshots as needed. 
+To navigate, use links in navbar.
 
 
 ## Credits
 
-List your collaborators, if any, with links to their GitHub profiles.
-
-If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section.
-
-If you followed tutorials, include links to those here as well.
+Most credit goes to Mauricio Fuentes Gomez.
+Special thanks to my peers and T.As for help.
 
 
 
 ## License
 
-The last section of a good README is a license. This lets other developers know what they can and cannot do with your project. If you need help choosing a license, use [https://choosealicense.com/](https://choosealicense.com/)
+CC0-1.0
