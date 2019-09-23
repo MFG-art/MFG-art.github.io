@@ -1,0 +1,14 @@
+There were errors in the html, javascript, and css files for Boo's website. 
+
+The link for the javascript file linked to a non-existing file called errors.js. 
+
+The link to Boo's image was written in incorrect syntax and did not render properly on the site.
+
+In the javascript file, the command "click" for the grow and shrink functions was not in double quotations, breaking the code. 
+
+The title of the website was not labeled with <h1> markers, resulting in incorrect formatting. 
+
+In the list section of the html, the statements were not labeled with <li> markers, resulting in them not being numbered.
+
+The code for Boo's website was poorly formatted, making it dificult to understand it's purpose as well as dificult to compare with working code. 
+

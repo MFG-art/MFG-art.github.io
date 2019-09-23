@@ -1,0 +1,36 @@
+p.red {
+    color: red;
+}
+p.blue {
+    color: blue;
+}
+p.green {
+    color: green;
+}
+p.big {
+    font-size:300%;
+}
+p.tiny {
+    font-size: 50%;
+}
+p.centered {
+    text-align: center;
+}
+p.ChangeFont {
+    font-family: fantasy;
+}
+p.styledFont {
+    color: purple;
+    font-size: 150%;
+}
+p.multipleAttributes {
+    color: orange;
+    font-size: 300%;
+}
+#styledImage {
+    border: 10px solid blue;
+    text-align: center;
+}
+body {
+    background-color: burlywood;
+}

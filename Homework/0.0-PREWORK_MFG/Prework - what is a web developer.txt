@@ -1,0 +1,19 @@
+PHP: Used to stand for Personal Home Page, and now stands for Hypertext Preprocessor. PHP is a script language that is mainly used on Linux servers. 
+
+SAP: 
+
+T-SQL: Short for Transact-SQL. They are a set of programming extensions for the Structured Query Language. Used by applications to commumicate with SQL server.
+
+NetSuite:
+
+Nexera:
+
+RESTful:
+
+Drupal:
+
+LAMP stack:
+
+CI/CD:
+
+Ajax:

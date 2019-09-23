@@ -1,0 +1,51 @@
+.navbar ul li a {
+    color: #cccccc;
+}
+
+h1 {
+    background-color:#4aaaa5;
+    color: white;
+    width: 370px;
+    float: left;
+    height: 60px;
+    margin-left: 194px;
+    margin-right: 25%;
+} 
+
+body {
+    background-image: url(../Images/vintage-concrete/vintage-concrete.png);
+    background-repeat: repeat;
+ }
+
+main {
+    background-color: #ffffff;
+    color: #777777;
+    font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+    margin: 10px 100px 23px 194px;
+    width: 960px;
+    height: 500px;
+}
+
+h2 {
+    color: #4aaaa5;
+    font-family: 'Georgia', Times, 'Times New Roman', serif;
+    font-size: 28px;
+    margin: 20px;
+    line-height: 150%;
+}
+
+hr {
+    color: #777777;
+    width: 95%;
+    margin-left: 2.5%;
+}
+
+footer {
+    background-color: #666666;
+    color: white;
+    font-size: 12px;
+    border-top: 10px solid #4aaaa5;
+    height: 50px;
+    text-align: center;
+    line-height: 200%;
+}
