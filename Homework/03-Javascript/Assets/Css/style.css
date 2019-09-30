@@ -1,0 +1,14 @@
+body {
+    background-image: url("../Images/blue tile.png");
+    background-repeat: repeat;
+}
+
+h1, main {
+    color: white;
+    background-color: black;
+    text-align: center;
+    line-height: 150%;
+    font-family: 'Turret Road', cursive;
+    border: double white;
+    border-radius: 5px;
+}
