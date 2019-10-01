@@ -4,6 +4,7 @@
 var passwordLength;
 passwordLength = prompt("Enter your password length (as a number)");
 passwordLength = parseInt(passwordLength);
+var selectedChar = [];
 
 while (passwordLength < 8 || passwordLength > 128) {
     if (passwordLength <8) {
@@ -18,15 +19,29 @@ while (passwordLength < 8 || passwordLength > 128) {
     }
 }
 
+confirm("Do you want to include uppercase letters?");
+confirm("Do you want to include lowercase letters?");
+confirm("Do you want to include numbers?");
+confirm("Do you want to include special symbols?");
+
 for (var i = 0; i < passwordLength; i++){
-    var randCharType = Math.floor(Math.random()*3)
+    var randIndex = Math.floor(Math.random()*3)
+
+    if (randCharType === "upperCase") {
+        // generates random lowercase letter as ASCII value
+        var newChar = Math.floor(Math.random()*26)+97; 
+    }
+    else if (randCharType === "lowerCase") {
+        //generates random Uppercase letter as ASCII value
+        var newChar = Math.floor(Math.random()*26)+64;
+    }
+    else if (randCharType === "number") {
+        // generates random number (0-9) as ASCII value
+        var newChar = Math.floor(Math.random*10)+48;
+    }
 }
 
-// generates random lowercase letter as ASCII value
-var newChar = Math.floor(Math.random()*26)+97; 
 
-//generates random Uppercase letter as ASCII value
-Math.floor(Math.random()*26)+64; 
 
-// generates random number (0-9) as ASCII value
-Math.floor(Math.random*10)+48;
+ 
+
