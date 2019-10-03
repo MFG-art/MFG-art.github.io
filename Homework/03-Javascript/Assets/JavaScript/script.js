@@ -4,23 +4,29 @@
  97 - 122 are lowercase letters a - z 
  */
 
+var password = "";
+var selectedChar = [];
 var passwordLength = prompt("Enter your password length as a number:");
+console.log(passwordLength);
 passwordLength = checkIfNaN(passwordLength);
+
 
 
 // This loop ensures that the user has entered a number:
 function checkIfNaN (x) {
-    while (typeof(x) === "string") {
-        x = prompt("Enter your password length (as a number!):");
-        if (!(isNaN(parseInt(x)))) 
-        {x = parseInt(x);
-        return x;
+    while (typeof(x) === "string" || x === null) {
+        if (x == true) {
+            x = parseInt(x);
+            console.log("Condition: true: " + x);
+            return x;
         }
+        else if (x === null){
+            console.log("Condition: false: " + x);
+            x = prompt("Enter your password length (as a number!):");
+        }
+        else {x = prompt("Enter your password length (as a number!):");}
     }
 }
-
-
-var password = [];
 
 // This loops around until the user has selected an acceptable password length n (8<n<128)
 while (passwordLength < 8 || passwordLength > 128) {
@@ -55,23 +61,34 @@ if (doSpecialChar) {selectedChar.push("specialChar");}
 
 
 for (var i = 0; i < passwordLength; i++){
-    var randIndex = Math.floor(Math.random()*3)
+    var randIndex = Math.floor(Math.random()*selectedChar.length);
+    randCharType = selectedChar[randIndex];
 
-    if (randCharType === "upperCase") {
+    if (randCharType === "lowerCase") {
         // generates random lowercase letter as ASCII value
-        var newChar = Math.floor(Math.random()*26)+97; 
+        var newChar = String.fromCharCode(Math.floor(Math.random()*26)+97);
+        console.log(newChar);
     }
-    else if (randCharType === "lowerCase") {
+    else if (randCharType === "upperCase") {
         //generates random Uppercase letter as ASCII value
-        var newChar = Math.floor(Math.random()*26)+64;
+        var newChar = String.fromCharCode(Math.floor(Math.random()*26)+64);
+        console.log(newChar);
     }
     else if (randCharType === "number") {
         // generates random number (0-9) as ASCII value
-        var newChar = Math.floor(Math.random*10)+48;
+        var AsciiValue = Math.floor(Math.random()*10)+48;
+        var newChar = String.fromCharCode(AsciiValue);
+        console.log(newChar + " .ASCII value is: " + AsciiValue);
+   
     }
+    else {
+        var specialCharArr = ["\\","!","|","\"","@","·","#","$","~","%","&","¬","/","(",")","=","?","'","^","<",">",",",";",".",":","-","_","+","-","*","[","]","{","}"];
+        var specialCharIndex = Math.floor(Math.random()*specialCharArr.length);
+        var newChar = specialCharArr[specialCharIndex];
+        console.log(newChar);
+    }
+    password = (password + newChar);
 }
 
-
-
- 
-
+passwordDiv = document.getElementById("password");
+passwordDiv.innerHTML = password;

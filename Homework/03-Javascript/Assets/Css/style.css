@@ -12,3 +12,11 @@ h1, main {
     border: double white;
     border-radius: 5px;
 }
+
+main {
+    font-size: 20px;
+}
+
+#password {
+    font-family: 'Times New Roman', Times, serif;
+}
