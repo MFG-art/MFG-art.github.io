@@ -17,8 +17,9 @@ generateBtn.addEventListener("click", function(event) {
     passwordLength = checkIfNaN(passwordLength);
 
 // This loop ensures that the user has entered a number:
+// REMEMBER! THIS FUNCTION ACCEPTS A STRING, NOT A NUMBER!
 function checkIfNaN (x) {
-    while (typeof(x) === "string") {
+    while (typeof(x) === "string" || x === null) {
         if (x) {
             x = parseInt(x);
             console.log("Condition: true: " + x);
@@ -38,7 +39,6 @@ while (passwordLength < 8 || passwordLength > 128) {
         alert("Password must be at least 8 characters long!");
         passwordLength = prompt("Enter a new password length:");
         if (!(isNaN(parseInt(passwordLength)))) {
-            passwordLength = parseInt(passwordLength);
             passwordLength = checkIfNaN(passwordLength);
         }
         
@@ -47,7 +47,6 @@ while (passwordLength < 8 || passwordLength > 128) {
         alert("Password cannot be longer than 128 characters!");
         passwordLength = prompt("Enter a new password length:");
         if (!(isNaN(parseInt(passwordLength)))) {
-            passwordLength = parseInt(passwordLength); 
             passwordLength = checkIfNaN(passwordLength);}
         
     }
