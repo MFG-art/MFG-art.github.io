@@ -4,18 +4,22 @@
  97 - 122 are lowercase letters a - z 
  */
 
-var password = "";
-var selectedChar = [];
-var passwordLength = prompt("Enter your password length as a number:");
-console.log(passwordLength);
-passwordLength = checkIfNaN(passwordLength);
 
 
+var generateBtn = document.querySelector("#generate");
+
+generateBtn.addEventListener("click", function(event) {
+
+    var password = "";
+    var selectedChar = [];
+    var passwordLength = prompt("Enter your password length as a number:");
+    console.log(passwordLength);
+    passwordLength = checkIfNaN(passwordLength);
 
 // This loop ensures that the user has entered a number:
 function checkIfNaN (x) {
-    while (typeof(x) === "string" || x === null) {
-        if (x == true) {
+    while (typeof(x) === "string") {
+        if (x) {
             x = parseInt(x);
             console.log("Condition: true: " + x);
             return x;
@@ -92,3 +96,4 @@ for (var i = 0; i < passwordLength; i++){
 
 passwordDiv = document.getElementById("password");
 passwordDiv.innerHTML = password;
+});

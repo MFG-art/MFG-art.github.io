@@ -20,3 +20,11 @@ main {
 #password {
     font-family: 'Times New Roman', Times, serif;
 }
+
+button {
+    color: white;
+    background-color: black;
+    text-align: center;
+    line-height: 150%;
+    font-family: 'Turret Road', cursive;
+}
