@@ -1,5 +1,5 @@
-
-function generateHeader(x){
+// THIS FUNCTION GENERATES THE HEADER, WITH TIME = X
+function generateHeader(x,timeCount){
     // actual link to high scores
     var highScoreLink = $("<a>");
     highScoreLink.text("view high scores");
@@ -29,11 +29,25 @@ function generateHeader(x){
     headerDiv.append(highScoreDiv);
     headerDiv.append(timerDiv);
     $(document.body).append(headerDiv);
+
+    if (timeCount === true){
+        var timeCountdown = setInterval(function(){
+            time--;
+            timerSpan.html("Time left: " + time);
+            console.log(time);
+    
+            if (time === 0){
+                clearInterval(timeCountdown);
+                alert("Time's Up!");
+            }
+        }, 1000);
+    }
 }
 
+// THIS FUNCTION GENERATES THE S TART SCREEN (TIME = 0)
 function startScreen(){
 
-    generateHeader(0);
+    generateHeader(0,false);
 
     //creates the main text for the intro screen
     var mainTxt = $("<h3>");
@@ -58,7 +72,56 @@ function startScreen(){
         $("#header-div").remove();
         $("#main-text").remove();
         $("#start-button").remove();
+        questions();
     })
 }
+
+function questions(){
+    var questionArray = [
+        "Which of the following is NOT a common oscillator waveform?",
+        "Which filter only lets frequencies below it's cutoff frequency pass?",
+        "What is the name of the famous JP-8000 oscillator setting?"
+    ]
+
+    var answers1 = {
+        "Triangle":"4",
+        "High Pass Filter":"0",
+        "God Saw":"0",
+    }
+
+    var answers2 = {
+        "Square":"4",
+        "Low Pass Filter":"4",
+        "Master Saw":"0"
+}
+
+    var answers3 = {
+        "Circle":"0",
+        "Band Pass Filter":"0",
+        "Epic Saw":"0"
+    }
+
+    var answers4 = {
+        "Sawtooth":"4",
+        "Notch Filter":"0",
+        "Supersaw":"4"
+    }
+    generateHeader(5,true);
+
+    var currentQuestion = $("<h1>");
+    var questionNum = 0;
+    currentQuestion.text(questionArray[questionNum]);
+    $(document.body).append(currentQuestion);
+
+
+
+    
+
+
+
+}
+
+
+
 
 startScreen();
