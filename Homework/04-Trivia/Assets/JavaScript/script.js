@@ -34,7 +34,7 @@ function generateHeader(x,timeCount){
         var timeCountdown = setInterval(function(){
             time--;
             timerSpan.html("Time left: " + time);
-            console.log(time);
+
     
             if (time === 0){
                 clearInterval(timeCountdown);
@@ -44,7 +44,7 @@ function generateHeader(x,timeCount){
     }
 }
 
-// THIS FUNCTION GENERATES THE S TART SCREEN (TIME = 0)
+// THIS FUNCTION GENERATES THE START SCREEN (TIME = 0)
 function startScreen(){
 
     generateHeader(0,false);
@@ -76,52 +76,72 @@ function startScreen(){
     })
 }
 
+var currentQuestion;
+var questionNum;
+var button1;
+var button2;
+var button3;
+var button4;
+
+var questionArray = [
+    "Which of the following is NOT a common oscillator waveform?",
+    "Which filter only lets frequencies below it's cutoff frequency pass?",
+    "What is the name of the famous JP-8000 oscillator setting?"]
+
+var answers1 = ["Triangle","High Pass Filter","God Saw"]; 
+var answers2 = ["Square","Low Pass Filter","Master Saw"];
+var answers3 = ["Circle","Band Pass Filter","Epic Saw"];
+var answers4 = ["Sawtooth","Notch Filter","Supersaw"];
+
 function questions(){
-    var questionArray = [
-        "Which of the following is NOT a common oscillator waveform?",
-        "Which filter only lets frequencies below it's cutoff frequency pass?",
-        "What is the name of the famous JP-8000 oscillator setting?"
-    ]
 
-    var answers1 = {
-        "Triangle":"4",
-        "High Pass Filter":"0",
-        "God Saw":"0",
-    }
+        
+    generateHeader(60,true);
 
-    var answers2 = {
-        "Square":"4",
-        "Low Pass Filter":"4",
-        "Master Saw":"0"
-}
+    questionNum = 0;
 
-    var answers3 = {
-        "Circle":"0",
-        "Band Pass Filter":"0",
-        "Epic Saw":"0"
-    }
-
-    var answers4 = {
-        "Sawtooth":"4",
-        "Notch Filter":"0",
-        "Supersaw":"4"
-    }
-    generateHeader(5,true);
-
-    var currentQuestion = $("<h1>");
-    var questionNum = 0;
-    currentQuestion.text(questionArray[questionNum]);
+    currentQuestion = $("<h1>");
     $(document.body).append(currentQuestion);
+    button1 = $("<button>");
+    $(document.body).append(button1);
+    button2 = $("<button>");
+    $(document.body).append(button2);
+    button3 = $("<button>");
+    $(document.body).append(button3);
+    button4 = $("<button>");
+    $(document.body).append(button4);
 
+    nextQuestion();
 
+    button1.on("click",function(){
+        questionNum++;
+        nextQuestion();
+    });
 
-    
+    button2.on("click",function(){
+        questionNum++;
+        nextQuestion();
+    });
 
+    button3.on("click",function(){
+        questionNum++;
+        nextQuestion();
+    });
+
+    button4.on("click",function(){
+        questionNum++;
+        nextQuestion();
+    });
 
 
 }
 
-
-
+function nextQuestion(){
+        currentQuestion.text(questionArray[questionNum]);
+        button1.text(answers1[questionNum]);
+        button2.text(answers2[questionNum]);
+        button3.text(answers3[questionNum]);
+        button4.text(answers4[questionNum]);
+}
 
 startScreen();
