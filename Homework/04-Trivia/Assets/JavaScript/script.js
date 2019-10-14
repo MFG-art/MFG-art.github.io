@@ -176,7 +176,6 @@ function questions(){
         playerPoints += button1points[questionNum];
         if (button1points[questionNum] === 0) {
             time = time - 10;
-            console.log(time);
             timerSpan.html("Time left: " + time);
         }
         questionNum++;
@@ -187,7 +186,6 @@ function questions(){
         playerPoints += button2points[questionNum];
         if (button2points[questionNum] === 0) {
            time = time - 10;
-           console.log(time);
            timerSpan.html("Time left: " + time);
         }
         questionNum++;
@@ -198,7 +196,6 @@ function questions(){
         playerPoints += button3points[questionNum];
         if (button3points[questionNum] === 0) {
             time = time - 10;
-            console.log(time);
             timerSpan.html("Time left: " + time);
         }
         questionNum++;
@@ -209,7 +206,6 @@ function questions(){
         playerPoints += button4points[questionNum];
         if (button4points[questionNum] === 0) {
             time = time - 10;
-            console.log(time);
             timerSpan.html("Time left: " + time);
         }
         questionNum++;
@@ -229,6 +225,7 @@ function nextQuestion(){
         if (questionNum >= 3) {
             time = 0;
             $("button").remove();
+            $("div").remove();
             $("h1").remove();
             $("#header-div").remove();
             $("#main-text").remove();
