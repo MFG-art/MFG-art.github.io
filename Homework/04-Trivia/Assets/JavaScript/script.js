@@ -69,8 +69,15 @@ function startScreen(){
     var startBtn = $("<button>");
     startBtn.text("Click to start quiz");
     startBtn.attr("id","start-button");
-    startBtn.attr("style","margin:auto;background-color:green;font-size:40px;");
-    $(document.body).append(startBtn);
+    startBtn.attr("style","margin-left:40%;background-color:green;font-size:40px;");
+    var buttonDiv = $("<div>");
+    buttonDiv.attr("id","start-button-div");
+    buttonDiv.attr("style","width:100%;height:auto");
+
+  
+    $(buttonDiv).append(startBtn);
+    $(document.body).append(buttonDiv);    
+    
 
     // listens for button click
     $("#start-button").on("click",function(){
@@ -80,7 +87,7 @@ function startScreen(){
         //removes all elements from DOM
         $("#header-div").remove();
         $("#main-text").remove();
-        $("#start-button").remove();
+        $("#start-button-div").remove();
         questions();
     })
 }
@@ -121,14 +128,47 @@ function questions(){
 
     currentQuestion = $("<h1>");
     $(document.body).append(currentQuestion);
+
+    //Elements for first button
     button1 = $("<button>");
-    $(document.body).append(button1);
+    button1.attr("style","position:relative;left:50px;top:10px;");
+    button1Div = $("<div>");
+    button1Div.attr("id","#button1Div");
+    button1Div.attr("style","width:100%;height:40px;margin-top:10px;");
+    $(button1Div).append(button1);
+    $(document.body).append(button1Div);
+
+
+    //Elements for second button
     button2 = $("<button>");
+    button2.attr("style","position:relative;left:50px;top:10px;");
+    button2Div = $("<div>");
     $(document.body).append(button2);
+    button2Div.attr("id","#button2Div");
+    button2Div.attr("style","width:100%;height:40px;");
+    $(button2Div).append(button2);
+    $(document.body).append(button2Div);
+
+
+    // Elements for third button
     button3 = $("<button>");
+    button3.attr("style","position:relative;left:50px;top:10px;");
+    button3Div = $("<div>");
     $(document.body).append(button3);
+    button3Div.attr("id","#button3Div");
+    button3Div.attr("style","width:100%;height:40px;");
+    $(button3Div).append(button3);
+    $(document.body).append(button3Div);
+
+    // Elements for fourth button
     button4 = $("<button>");
+    button4.attr("style","position:relative;left:50px;top:10px;");
+    button4Div = $("<div>");
     $(document.body).append(button4);
+    button4Div.attr("id","#button4Div");
+    button4Div.attr("style","width:100%;height:40px;");
+    $(button4Div).append(button4);
+    $(document.body).append(button4Div);
 
     nextQuestion();
 
@@ -192,7 +232,7 @@ function nextQuestion(){
             $("h1").remove();
             $("#header-div").remove();
             $("#main-text").remove();
-            $("#start-button").remove();
+            $("#start-button-div").remove();
            
             
         }
