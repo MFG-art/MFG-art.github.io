@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body style="background-color:gray;">
+    <form action="" style="margin:100px;background-color:#99ff99;width:550px;">
+        <input type="text" style="margin:20px;" placeholder="Enter your initials" value="This is the default value" id="user-initials">
+        <button style="width: 500px;margin:20px;" id="submit-button">Submit username</button>
+
+
+    </form>
+</body>
+<script>
+
+    $(document).on("click","#submit-button",function(event){
+        event.preventDefault();
+
+            var dummyVar = $("#user-initials").val();
+            console.log(dummyVar);
+        })
+
+        
+</script>
+</html>

@@ -2,7 +2,6 @@
 var time = 0;
 var playerPoints = 0;
 var timerSpan = $("<span>");
-var timeCount = false;
 
 // THIS FUNCTION GENERATES THE HEADER, WITH CONDITION TIMECOUNT, WHICH DETERMINES IF THE TIME VALUE COUNTS DOWN OR STAYS STATIC.
 function generateHeader(timeCount){
@@ -41,6 +40,8 @@ function generateHeader(timeCount){
 
             if (time < 0) {
                 timeCount = false;
+                questionNum = 3;
+                nextQuestion();
             }
 
     
@@ -125,7 +126,11 @@ function questions(){
     
     //sets initial time during first question.
     if (questionNum === 0) {
-        time = 60;
+        time = 10;
+    }
+
+    if (questionNum === 3) {
+        time = 0;
     }
 
     //generates header with timeCount condition true.
@@ -178,6 +183,7 @@ function questions(){
 
     nextQuestion();
 
+
     button1.on("click",function(){
         playerPoints += button1points[questionNum];
         if (button1points[questionNum] === 0) {
@@ -228,11 +234,6 @@ function questions(){
 //THIS FUNCTION UPDATES THE ELEMENTS APPENDED IN questions(). ONCE ALL QUESTIONS HAVE BEEN DISPLAYED, IT CALLS enterUsername();
 function nextQuestion(){
     // Updates the display information for the question text and answer options.
-        currentQuestion.text(questionArray[questionNum]);
-        button1.text(answers1[questionNum]);
-        button2.text(answers2[questionNum]);
-        button3.text(answers3[questionNum]);
-        button4.text(answers4[questionNum]);
         
         if (questionNum >= 3) {
             time = 0;
@@ -249,18 +250,109 @@ function nextQuestion(){
             $("#start-button-div").remove();
             enterUsername();
         }
-}
+        else {
+            currentQuestion.text(questionArray[questionNum]);
+            button1.text(answers1[questionNum]);
+            button2.text(answers2[questionNum]);
+            button3.text(answers3[questionNum]);
+            button4.text(answers4[questionNum]);
+        }
+    }
+       
 
 
 //THIS FUNCTION APPENDS ELEMENTS TO DISPLAY A FORM THAT PROMPTS THE USER TO ENTER THEIR INITIALS. IT CALLS highScoreScreen() ONCE THE USER HAS SUBMITTED THEIR INITIALS.
 function enterUsername () {
+    console.log("Enter username:");
+    var usernameForm = $("<form>");
+    var usernameInput = $("<input>");
+    var usernameSubmit = $("<button>");
+
+
+    $(document.body).attr("style","background-color:gray");
+    $(usernameForm).attr("style","margin:100px;background-color:#99ff99;width:550px;");
+
+    $(usernameInput).attr("style","margin:20px;");
+    $(usernameInput).attr("id","username-input");
+    $(usernameInput).attr("placeholder","Enter your initials");
+    
+    $(usernameSubmit).attr("style","width: 500px;margin:20px;");
+    $(usernameSubmit).text("Submit username");
+    $(usernameSubmit).attr("id","submit-button");
+    usernameSubmit.attr("value","Submit initials");
+
+
+    usernameForm.append(usernameInput);
+    usernameForm.append(usernameSubmit);
+    $(document.body).append(usernameForm);
+
+    $(document).on("click","#submit-button",function(event){
+        event.preventDefault();
+            var userInitials = $("#username-input").val();
+            console.log(userInitials);
+            
+            var playerScore = {
+                "initials":null,
+                "score":null,
+            }
+            playerScore.initials = userInitials;
+            playerScore.score = playerPoints;
+
+            playerScore = JSON.stringify(playerScore);
+            localStorage.setItem("player-score",playerScore);
+            $("form").remove();
+            $("input").remove();
+            $("button").remove();
+            highScoreScreen();
+    });
 
 }
 
 //THIS FUNCTION GETS HIGH SCORE INFORMATION FROM LOCAL STORAGE. IT ALSO HAS A BUTTON THAT TAKES THE USER BACK TO THE START SCREEN.
 function highScoreScreen(){
+    $("body").attr("style","background-color:gray;");
+    var mainDiv = $("<div>");
+    mainDiv.attr("style","background-color:white;margin-left:20%;width:60%;height:500px;margin-top:5%;");
+    mainDiv.attr("id","main-div");
 
+    var headerEl = $("<h1>");
+    headerEl.text("These are the high scores: ");
+    headerEl.attr("style","text-align:center;margin:10px;position:relative;top:10px;");
+
+    var hrEl = $("<hr>");
+    hrEl.attr("style","color:black;position:relative;top:10px;");
+    
+    $(document.body).html(mainDiv);
+    $(mainDiv).append(headerEl);
+    $(mainDiv).append(hrEl);
+
+    var newGameBtn = $("<button>");
+    newGameBtn.attr("style","position:relative;left:100px;top:400px;");
+    newGameBtn.attr("id","new-game-button");
+    newGameBtn.text("Start a new game!");
+    mainDiv.append(newGameBtn);
+
+    $(document).on("click","#new-game-button",function(event){
+        event.preventDefault();
+
+        alert($("#main-div").attr("id"));
+        $("#main-div").remove();
+        alert($("#main-div").attr("id"));
+        
+
+        time = 0;
+        playerPoints = 0;
+        timerSpan = $("<span>");
+        timeCount = false;
+        questionNum = 0;
+        $("body").attr("style","background-color:white;");
+        startScreen(false);
+
+
+    });
 }
+    
+
 
 //This function is called right as the page is loaded. (Loads the start screen for the user)
-startScreen();
+startScreen(false);
