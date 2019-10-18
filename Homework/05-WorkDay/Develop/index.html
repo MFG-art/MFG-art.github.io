@@ -1,24 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
+    <!-- meta tags -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!-- Bootstrap -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     />
+    <!-- FontAwesome -->
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
       crossorigin="anonymous"
     />
+    <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
       rel="stylesheet"
     />
+    <!-- CSS Stylesheet -->
     <link rel="stylesheet" href="style.css" />
+
+    <!-- Moment.js -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
     <title>Work Day Scheduler</title>
   </head>
 
@@ -31,55 +42,76 @@
 
     <div class="container">
       <!-- TIMEBLOCKS -->
-      <div class="row">
+      <!-- 9 AM -->
+      <div class="row row0" data-index="0">
         <div class="col-md-2 hour">9:00 AM</div>
-        <div class="col-md-9 past">Event goes here</div>
+        <input class="col-md-9 eventText"></input>
         <button class="col-md-1 saveBtn">Save</button>
       </div>
-      <div class="row">
+
+      <!-- 10 AM -->
+      <div class="row row1" data-index="1">
           <div class="col-md-2 hour">10:00 AM</div>
-          <div class="col-md-9 past">Event goes here</div>
+          <input class="col-md-9 eventText"></input>
           <button class="col-md-1 saveBtn">Save</button>
       </div>
-      <div class="row">
+
+      <!-- 11 AM -->
+      <div class="row row2" data-index="2">
           <div class="col-md-2 hour">11:00 AM</div>
-          <div class="col-md-9 past">Event goes here</div>
+          <input class="col-md-9 eventText"></input>
           <button class="col-md-1 saveBtn">Save</button>
       </div>
-      <div class="row">
+
+      <!-- 12 PM -->
+      <div class="row row3" data-index="3">
           <div class="col-md-2 hour">12:00 PM</div>
-          <div class="col-md-9 past">Event goes here</div>
+          <input class="col-md-9 eventText"></input>
           <button class="col-md-1 saveBtn">Save</button>
       </div>
-      <div class="row">
+
+      <!-- 1 PM -->
+      <div class="row row4" data-index="4">
           <div class="col-md-2 hour">1:00 PM</div>
-          <div class="col-md-9 past">Event goes here</div>
+          <input class="col-md-9 eventText"></input>
           <button class="col-md-1 saveBtn">Save</button>
       </div>
-      <div class="row">
+
+      <!-- 2 PM -->
+      <div class="row row5" data-index="5">
           <div class="col-md-2 hour">2:00 PM</div>
-          <div class="col-md-9 past">Event goes here</div>
+          <input class="col-md-9 eventText"></input>
           <button class="col-md-1 saveBtn">Save</button>
       </div>
-      <div class="row">
+
+      <!-- 3 PM -->
+      <div class="row row6" data-index="6">
           <div class="col-md-2 hour">3:00 PM</div>
-          <div class="col-md-9 past">Event goes here</div>
+          <input class="col-md-9 eventText"></input>
           <button class="col-md-1 saveBtn">Save</button>
       </div>
-      <div class="row">
+
+      <!-- 4 PM -->
+      <div class="row row7" data-index="7">
           <div class="col-md-2 hour">4:00 PM</div>
-          <div class="col-md-9 past">Event goes here</div>
+          <input class="col-md-9 eventText"></input>
           <button class="col-md-1 saveBtn">Save</button>
       </div>
-      <div class="row">
+
+      <!-- 5 PM -->
+      <div class="row row8" data-index="8">
           <div class="col-md-2 hour">5:00 PM</div>
-          <div class="col-md-9 past">Event goes here</div>
+          <input class="col-md-9 eventText"></input>
           <button class="col-md-1 saveBtn">Save</button>
       </div>
 
     </div>
 
+    <!-- jQuery and AJAX links -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+    <!-- Link to JS file -->
+    <script src="script.js"></script>
   </body>
 </html>
