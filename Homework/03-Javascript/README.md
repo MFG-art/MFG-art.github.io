@@ -44,43 +44,43 @@ Each new character is appended to a string variable called "password", which lat
 ## Usage
 When you first load the website, you will be greeted by this page:
 
-![Start Page](/Assets/Images/start-page.png)
+![Start Page](Assets/Images/start-page.png)
 
 If you click the "Generate Password!" button, you will see this prompt. You should answer this prompt by entering a number that is not smaller than eight or greater than one hundred twenty eight.
 
-![Password Length Prompt](/Assets/Images/password-length-prompt.png)
+![Password Length Prompt](Assets/Images/password-length-prompt.png)
 
 If you do not enter a number value, you will recieve this prompt. Enter a number to dismiss this prompt.
 
-![Enter as Number Prompt](/Assets/Images/enter-as-number-prompt.png)
+![Enter as Number Prompt](Assets/Images/enter-as-number-prompt.png)
 
 If your number is too small, you will see this prompt. Enter a number that is bigger than 7 to dismiss this prompt.
 
-![Number Too Small Prompt](/Assets/Images/number-too-small-prompt.png)
+![Number Too Small Prompt](Assets/Images/number-too-small-prompt.png)
 
 If your number is too large, you will see this prompt. Enter a number that is less than 129 to dismiss this prompt.
 
-![Number Too Large Prompt](/Assets/Images/number-too-large-prompt.png)
+![Number Too Large Prompt](Assets/Images/number-too-large-prompt.png)
 
 Next, this confirm wil appear. Select 'OK' if you want your password to contain uppercase characters, otherwise select 'Cancel'.
 
-![Uppercase Confirm](/Assets/Images/uppercase-confirm.png)
+![Uppercase Confirm](Assets/Images/uppercase-confirm.png)
 
 Next, this confirm wil appear. Select 'OK' if you want your password to contain lowercase characters, otherwise select 'Cancel'.
 
-![Lowercase Confirm](/Assets/Images/lowercase-confirm.png)
+![Lowercase Confirm](Assets/Images/lowercase-confirm.png)
 
 Next, this confirm wil appear. Select 'OK' if you want your password to contain numbers, otherwise select 'Cancel'.
 
-![Numbers Confirm](/Assets/Images/numbers-confirm.png)
+![Numbers Confirm](Assets/Images/numbers-confirm.png)
 
 Next, this confirm wil appear. Select 'OK' if you want your password to contain special characters, otherwise select 'Cancel'.
 
-![Special Characters Confirm](/Assets/Images/special-characters-confirm.png)
+![Special Characters Confirm](Assets/Images/special-characters-confirm.png)
 
 Once you have answered all prompts/confirms, you will see your password displayed on the page.
 
-![Password Displayed](/Assets/Images/password-displayed.png)
+![Password Displayed](Assets/Images/password-displayed.png)
 
 ## Credits
 All credits go to Mauricio.

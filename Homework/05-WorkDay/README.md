@@ -11,7 +11,7 @@ This website contains a table of which each row represents an hour of a daily pl
 
 This screenshot was taken at 2:53 PM:
 
-![Event Color Coding](/Assets/event-color-coding.png)
+![Event Color Coding](Assets/event-color-coding.png)
 
 The user can enter descriptive text in each of the text boxes. In order for the text infomation of the text boxes to be saved in local storage, the user must click on the save button associated with that time slot. When the user does this, this calls a function that updates an array called *events* that stores the text information of each text box, which is stored in an object called *eventObject*. *eventObject* is converted into a JSON string and set locally. When the page is reloaded, it is first going to see if it stores an *eventObject* file locally. This is done by using a truthy/falsey statement.
 ```javascript
