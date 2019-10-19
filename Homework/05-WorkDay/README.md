@@ -1,87 +1,41 @@
-# Unit 05 Third-Party APIs Homework: Day Planner
+# Mauricio's Calendar
 
-Create a simple calendar application that allows the user to save events for each hour of the day. This app will run in the browser and feature dynamically updated HTML and CSS powered by jQuery.
+## Table of Contents
+* [Description](#description)
+* [Usage](#usage)
+* [Credits](#credits)
 
-The app should display standard business hours (9 a.m. to 5 p.m.). Each time slot should represent one hour and contain the following:
+## Description
 
-* The time
+This website contains a table of which each row represents an hour of a daily planner. The hours span from 9:00 AM to 5:00 PM. Each row lists the hour for that row, contains a text box for the user to write notes, and a save button. The daily planner is powered by moment.js, an API that accesses local time information from the user's device. Moment.js is called every time the page is loaded, and places the time information for the current time in a variable. The hour information is used to highlight the current hour on the planner as well as point out past and upcoming events. The text box of past events are given a gray background, the present hour is marked with a pink background, and the text boxes of future time slots are designated a pastel green background.
 
-* A field to hold user input
+This screenshot was taken at 2:53 PM:
 
-* A save button
+![Event Color Coding](/Assets/event-color-coding.png)
 
-Clicking on the save button will store the time and user input in `localStorage`.
-
-Near the top of the calendar, the application should display the current day. Additionally, each hour should be color coded to reflect whether the time slot is in the past, the present, or the future. This will change depending on the time of day.
-
-You'll need to use the [Moment.js](https://momentjs.com/) library to work with date and time. Be sure to read the documentation carefully and concentrate on using Moment.js in the browser.
-
-![day planner demo](./Assets/05-Third-Party-APIs-homework-demo.gif)
-
-## User Story
-
-AS AN employee with a busy schedule
-
-I WANT to add important events to a daily planner
-
-SO THAT I can manage my time effectively 
-
-## Business Context
-
-Poor time management can result in missed meetings and deadlines or create the appearance of unprofessionalism. A daily planner allows employees to see their day at a glance, schedule time effectively, and improve productivity. 
-
-## Minimum Requirements
-
-* Functional, deployed application.
-
-* GitHub repository with a unique name and a README describing project.
-
-* The application displays timeblocks for standard business hours (9 a.m. to 5 p.m.).
-
-* Each timeblock contains an input field and save button.
-
-* Clicking a timeblock's "Save" button stores the input text in local storage, allowing the text to persist when the application is refreshed.
-
-* The current day is displayed at the top of the calendar.
-
-* Each timeblock is color coded to indicate whether it is in a past, present, or future hour.
-
+The user can enter descriptive text in each of the text boxes. In order for the text infomation of the text boxes to be saved in local storage, the user must click on the save button associated with that time slot. When the user does this, this calls a function that updates an array called *events* that stores the text information of each text box, which is stored in an object called *eventObject*. *eventObject* is converted into a JSON string and set locally. When the page is reloaded, it is first going to see if it stores an *eventObject* file locally. This is done by using a truthy/falsey statement.
+```javascript
+if (localStorage.getItem("eventObject") !== null) {
+    console.log(localStorage.getItem("eventObject") !== null);
+    var getObject = localStorage.getItem("eventObject");
+    getObject = JSON.parse(getObject);
+    events = getObject.events;
+    console.log(getObject.events);
+}
 ```
-GIVEN that an employee adds events to a specific hour in a calendar
+*localStorage.getItem()* will return **null** if it does not find a stored item with the provided key, so the above if statement will replace the contents of *events* with the locally stored data. If no *eventObject* item is found, it will default to an array with length 9 with each index containing a blank string (""). The contents of *events* are used to dispay
 
-WHEN the employee clicks the save button
+## Usage
 
-THEN events are saved in the timeblock for that hour
-```
-- - -
+To use, select a text box. These are either colored gray, pastel green, or pink. If you load the page outside of the 9:00 AM to 5:00 PM time range, they will all either be gray or green. Otherwise, the row representing the current hour will be marked pink. Enter your notes in the text box. 
 
-## Commit Early and Often
+**Make sure to always click the save button for each time slot after editing the text box inside it.**
 
-One of the most important skills to master as a web developer is version control. Building the habit of committing via Git is important for two reasons:
+The calendar is not deesigned to update it's time automatically. Reload the page to update it's time information.
 
-* Your commit history is a signal to employers that you are actively working on projects and learning new skills.
+To used
 
-* Your commit history allows you to revert your codebase in the event that you need to return to a previous state.
-
-Follow these guidelines for committing:
-
-* Make single-purpose commits for related changes to ensure a clean, manageable history. If you are fixing two issues, make two commits.
-
-* Write descriptive, meaningful commit messages so that you and anyone else looking at your repository can easily understand its history.
-
-* Don't commit half-done work, for the sake of your collaborators (and your future self!).
-
-* Test your application before you commit to ensure functionality at every step in the development process.
-
-We would like you to have well over 200 commits by graduation, so commit early and often!
-
-## Submission on BCS
-
-You are required to submit the following:
-
-* The URL of the deployed application
-
-* The URL of the GitHub repository
-
-- - -
-© 2019 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
+## Credits
+Mauricio Fuentes Gomez - (main developer).
+Moment.js is freely distributable under the terms of the MIT license.
+Copyright 2019 The jQuery Foundation. JQuery is freely distributable under the terms of the MIT license.
