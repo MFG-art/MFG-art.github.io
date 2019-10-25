@@ -1,6 +1,15 @@
 .grayColor {
-    background-color: gray;
+  background-color: gray;
 }
 .lightBlueColor {
-    background-color: lightblue;
+  background-color: lightblue;
+}
+
+.citySpan,
+.tempSpan,
+.humiditySpan,
+.windSpeedSpan {
+  margin: 0px 20px 0px 0px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 30px;
 }
