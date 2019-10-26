@@ -1,6 +1,7 @@
 //Variable used to store user input
 var userInput;
 var pastSearches = [];
+var cityNames = [];
 var pushToArray = false;
 var pastSearchesObject = {};
 console.log(pastSearches.length);
@@ -14,14 +15,18 @@ var responseTrue;
 function updateButtons() {
   $(".grayColor").empty();
   if (localStorage.getItem("pastSearchesJSON") !== null) {
-    pastSearches = localStorage.getItem("pastSearchesJSON");
-    pastSearches = JSON.parse(pastSearches).pastSearches;
-  }
-  for (var i = 0; i < pastSearches.length; i++) {
-    var newBtn = $("<button>");
-    newBtn.text(pastSearches[i]);
-    newBtn.attr("class", "newButton");
-    $(".grayColor").append(newBtn);
+    pastSearchesObject = localStorage.getItem("pastSearchesJSON");
+    pastSearchesObject = JSON.parse(pastSearchesObject);
+    pastSearches = pastSearchesObject.pastSearches;
+    console.log(pastSearches);
+    cityNames = pastSearchesObject.cityNames;
+
+    for (var i = 0; i < pastSearches.length; i++) {
+      var newBtn = $("<button>");
+      newBtn.text(cityNames[i]);
+      newBtn.attr("class", "newButton");
+      $(".grayColor").append(newBtn);
+    }
   }
 }
 
@@ -92,8 +97,12 @@ $("#submitBtn").on("click", function(event) {
 
       if (pushToArray) {
         pastSearches.push(userInput);
-        console.log(pastSearches);
-        pastSearchesObject = { pastSearches: pastSearches };
+        cityNames.push(city);
+        console.log(cityNames);
+        pastSearchesObject = {
+          pastSearches: pastSearches,
+          cityNames: cityNames
+        };
         let pastSearchesJSON = JSON.stringify(pastSearchesObject);
         localStorage.setItem("pastSearchesJSON", pastSearchesJSON);
         console.log(pastSearches);
@@ -249,3 +258,7 @@ $(".newButton").on("click", function(event) {
     }
   }, 300);
 });
+
+updateButtons();
+console.log(cityNames);
+console.log(pastSearches);
