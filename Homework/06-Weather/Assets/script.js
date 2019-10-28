@@ -10,6 +10,14 @@ var responseTrue;
 
 updateButtons();
 
+//If past search results are stored locally, this will pull up weather information for the most recent search.
+if (localStorage.getItem("pastSearchesJSON") !== null) {
+  pastSearchesObject = JSON.parse(localStorage.getItem("pastSearchesJSON"));
+  let userInput = pastSearchesObject.pastSearches[pastSearches.length - 1];
+  console.log(userInput);
+  getWeather(userInput);
+}
+
 function updateButtons() {
   $(".grayColor").empty();
   if (localStorage.getItem("pastSearchesJSON") !== null) {
