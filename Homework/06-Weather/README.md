@@ -35,7 +35,7 @@ Developers are often tasked with retrieving data from another application's API 
 
   - Humidity
 
-![weather dashboard](./Assets/06-Server-Side-APIs-homework-demo.png)
+![weather dashboard](Assets/06-Server-Side-APIs-homework-demo.png)
 
 - Application loads last searched city forecast on page load.
 
