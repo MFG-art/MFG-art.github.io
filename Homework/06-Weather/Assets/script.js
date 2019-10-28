@@ -197,6 +197,10 @@ $(document).on("click", ".newButton", function(event) {
   getWeather(userInput);
 });
 
+$(clearSearchHistory).on("click", function(event) {
+  localStorage.clear();
+});
+
 updateButtons();
 console.log(cityNames);
 console.log(pastSearches);
