@@ -29,9 +29,10 @@ function updateButtons() {
     console.log(cityNames);
 
     for (var i = 0; i < pastSearches.length; i++) {
-      var newBtn = $("<button>");
+      var newBtn = $(
+        "<button class='btn btn-light newButton m-sm-2'></button>"
+      );
       newBtn.text(cityNames[i]);
-      newBtn.attr("class", "newButton");
       $(".grayColor").append(newBtn);
     }
   } else {
@@ -205,8 +206,10 @@ $(document).on("click", ".newButton", function(event) {
   getWeather(userInput);
 });
 
-$(clearSearchHistory).on("click", function(event) {
+$("#clearSearchHistory").on("click", function(event) {
+  event.preventDefault();
   localStorage.clear();
+  updateButtons();
 });
 
 updateButtons();

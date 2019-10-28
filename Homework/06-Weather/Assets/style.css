@@ -14,16 +14,9 @@
 .tempSpan,
 .dateSpan,
 .humiditySpan,
-.windSpeedSpan {
+.windSpeedSpan,
+.uvIndexSpan {
   margin: 0px 20px 0px 0px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 20px;
-}
-
-.newButton {
-  margin: 20px;
-  background-color: lightsteelblue;
-  color: black;
-  border-radius: 5px;
-  border: 1px black solid;
+  font-size: 15px;
 }
