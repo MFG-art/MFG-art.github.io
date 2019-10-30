@@ -8,25 +8,23 @@ var pastSearchesObject = {};
 var city, date, iconImage, temp, humidity, windSpeed, uvIndex;
 var responseTrue;
 
-updateButtons();
-
 //If past search results are stored locally, this will pull up weather information for the most recent search.
-if (localStorage.getItem("pastSearchesJSON") !== null) {
+if (localStorage.getItem("pastSearchesJSON")) {
   pastSearchesObject = JSON.parse(localStorage.getItem("pastSearchesJSON"));
-  let userInput = pastSearchesObject.pastSearches[pastSearches.length - 1];
-  console.log(userInput);
+  pastSearches = pastSearchesObject.pastSearches;
+  userInput = pastSearches[pastSearches.length - 1];
   getWeather(userInput);
 }
 
+updateButtons();
+
 function updateButtons() {
   $(".grayColor").empty();
-  if (localStorage.getItem("pastSearchesJSON") !== null) {
+  if (localStorage.getItem("pastSearchesJSON")) {
     pastSearchesObject = localStorage.getItem("pastSearchesJSON");
     pastSearchesObject = JSON.parse(pastSearchesObject);
     pastSearches = pastSearchesObject.pastSearches;
     cityNames = pastSearchesObject.cityNames;
-    console.log(pastSearches);
-    console.log(cityNames);
 
     for (var i = 0; i < pastSearches.length; i++) {
       var newBtn = $(
@@ -55,7 +53,6 @@ function getWeather(userInput) {
     success: function(data) {
       responseTrue = true;
       ajaxCall = data;
-      console.log(ajaxCall);
     },
     error: function(data) {
       responseTrue = false;
@@ -95,8 +92,7 @@ function getWeather(userInput) {
       },
       error: function(data) {
         responseTrue = false;
-        console.log("Error!");
-        alert("Error! Please enter a valid city name.");
+        console.log("Error! UV data not found.");
       }
     });
   }, 300);
@@ -122,15 +118,12 @@ function getWeather(userInput) {
       if (pushToArray) {
         pastSearches.push(userInput);
         cityNames.push(city);
-        console.log(cityNames);
         pastSearchesObject = {
           pastSearches: pastSearches,
           cityNames: cityNames
         };
-        console.log(pastSearchesObject);
         let pastSearchesJSON = JSON.stringify(pastSearchesObject);
         localStorage.setItem("pastSearchesJSON", pastSearchesJSON);
-        console.log(pastSearches);
         updateButtons();
       }
 
@@ -180,6 +173,7 @@ $("#submitBtn").on("click", function(event) {
   event.preventDefault();
 
   let userInput = $("#search").val();
+  $("#search").val("");
   // Trims user input and replaces spaces with +.
   userInput = userInput.trim();
   userInput = userInput.toLowerCase();
@@ -197,7 +191,6 @@ $(document).on("click", ".newButton", function(event) {
   while (userInput.includes(" ")) {
     userInput = userInput.replace(" ", "+");
   }
-  console.log(userInput);
   getWeather(userInput);
 });
 
@@ -208,5 +201,3 @@ $("#clearSearchHistory").on("click", function(event) {
 });
 
 updateButtons();
-console.log(cityNames);
-console.log(pastSearches);
