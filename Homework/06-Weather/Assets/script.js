@@ -51,8 +51,22 @@ function getWeather(userInput) {
     data: "q=" + userInput + "&appid=" + APIKey,
     // if ajax call was successful
     success: function(data) {
-      responseTrue = true;
+      dataTrue = true;
       ajaxCall = data;
+      city = data.name;
+      date = data.dt;
+      lat = data.coord.lat;
+      long = data.coord.lon;
+      iconImage = data.weather[0].icon;
+
+      temp = data.main.temp;
+      // converting temp to Fahrenheit
+      temp = (temp - 273.15) * (9 / 5) + 32;
+      temp = temp.toFixed(0);
+
+      humidity = data.main.humidity;
+      windSpeed = data.wind.speed;
+      UVAjaxCall();
     },
     error: function(data) {
       responseTrue = false;
@@ -60,45 +74,32 @@ function getWeather(userInput) {
 
       alert("Error! Please enter a valid city name.");
     }
-  }).then(function(response) {
-    city = response.name;
-    date = response.dt;
-    lat = response.coord.lat;
-    long = response.coord.lon;
-    iconImage = response.weather[0].icon;
-
-    temp = response.main.temp;
-    // converting temp to Fahrenheit
-    temp = (temp - 273.15) * (9 / 5) + 32;
-    temp = temp.toFixed(0);
-
-    humidity = response.main.humidity;
-    windSpeed = response.wind.speed;
   });
 
-  setTimeout(function() {
-    queryURL = "https://api.openweathermap.org/data/2.5/uvi";
+  function UVAjaxCall() {
+    console.log(lat + ", " + long);
+    queryURL = "https://api.openweathermap.org/data/2.5/uvi?";
     $.ajax({
       url: proxy + queryURL,
       method: "GET",
       dataType: "json",
-      data: "?appid=" + APIKey + "&lat=" + lat + "&lon=" + long,
+      data: "appid=" + APIKey + "&lat=" + lat + "&lon=" + long,
       // if ajax call was successful
       success: function(data) {
         responseTrue = true;
         uvIndex = data.value;
         ajaxCall = data;
         console.log(ajaxCall);
+        displayWeatherData();
       },
-      error: function(data) {
+      error: function() {
         responseTrue = false;
         console.log("Error! UV data not found.");
       }
     });
-  }, 300);
-
+  }
   //Waits for AJAX call to end.
-  setTimeout(function() {
+  function displayWeatherData() {
     if (responseTrue) {
       //Checks if the array is not empty and compares each item in the array with the current user input
       if (pastSearches.length > 0) {
@@ -166,7 +167,7 @@ function getWeather(userInput) {
       weatherDiv.append(UVIndexSpan);
       $(".lightBlueColor").append(weatherDiv);
     }
-  }, 700);
+  }
 }
 
 $("#submitBtn").on("click", function(event) {
