@@ -100,6 +100,17 @@ function getWeather(userInput) {
   }
   //Waits for AJAX call to end.
   function displayWeatherData() {
+    queryURL = "https://api.openweathermap.org/data/2.5/forecast?";
+
+    $.ajax({
+      url: proxy + queryURL,
+      method: "GET",
+      dataType: "json",
+      data: "lat=" + lat + "&lon=" + long + "&appid=" + APIKey,
+      success: function(data) {
+        console.log(data);
+      }
+    });
     if (responseTrue) {
       //Checks if the array is not empty and compares each item in the array with the current user input
       if (pastSearches.length > 0) {
