@@ -43,6 +43,10 @@ function getWeather(userInput) {
   var proxy = "https://chriscastle.com/proxy/index.php?:proxy:";
   var queryURL = "https://api.openweathermap.org/data/2.5/weather?";
   let lat, long;
+  var datesArray = [];
+  var tempArray = [];
+  var humidityArray = [];
+  var weatherArray = [];
 
   $.ajax({
     url: proxy + queryURL,
@@ -90,7 +94,7 @@ function getWeather(userInput) {
         uvIndex = data.value;
         ajaxCall = data;
         console.log(ajaxCall);
-        displayWeatherData();
+        forecastAjaxCall();
       },
       error: function() {
         responseTrue = false;
@@ -98,9 +102,10 @@ function getWeather(userInput) {
       }
     });
   }
-  //Waits for AJAX call to end.
-  function displayWeatherData() {
+
+  function forecastAjaxCall() {
     queryURL = "https://api.openweathermap.org/data/2.5/forecast?";
+    var index = 0;
 
     $.ajax({
       url: proxy + queryURL,
@@ -108,9 +113,24 @@ function getWeather(userInput) {
       dataType: "json",
       data: "lat=" + lat + "&lon=" + long + "&appid=" + APIKey,
       success: function(data) {
-        console.log(data);
+        for (var i = 6; i < 39; i += 8) {
+          console.log(data.list[i]);
+          console.log("index: " + i);
+          datesArray[index] = data.list[i].dt;
+          tempArray[index] = data.list[i].main.temp;
+          humidityArray[index] = data.list[i].main.humidity;
+          weatherArray[index] = data.list[i].weather[0].icon;
+          index++;
+        }
+        displayWeatherData();
+      },
+      error: function() {
+        console.log("Error.");
       }
     });
+  }
+  //Waits for AJAX call to end.
+  function displayWeatherData() {
     if (responseTrue) {
       //Checks if the array is not empty and compares each item in the array with the current user input
       if (pastSearches.length > 0) {
@@ -147,6 +167,33 @@ function getWeather(userInput) {
       var humiditySpan = $("<span>");
       var windSpeedSpan = $("<span>");
       var UVIndexSpan = $("<span>");
+
+      for (var i = 0; i < 5; i++) {
+        var forecastDiv = $("<div>");
+        var fcDateSpan = $("<span>");
+        var fcTempSpan = $("<span>");
+        var fcHumiditySpan = $("<span>");
+        var fcWeatherIcon = $("<img>");
+        var dateMoment = moment(datesArray[i], "X");
+
+        forecastDiv.attr("class", "forecastDiv");
+        fcDateSpan.attr("class", "fcDateSpan");
+        fcTempSpan.attr("class", "fcTempSpan");
+        fcHumiditySpan.attr("class", "fcHumiditySpan");
+        fcWeatherIcon.attr("class", "fcWeatherIcon");
+        fcDateSpan.html("Date: " + dateMoment.format("MM-DD-YYYY"));
+        fcTempSpan.html("Temperature: " + tempArray[i]);
+        fcHumiditySpan.html("Humidity: " + humidityArray[i] + "%");
+        fcWeatherIcon.attr(
+          "src",
+          "https://openweathermap.org/img/wn/" + weatherArray[i] + ".png"
+        );
+        forecastDiv.append(fcDateSpan);
+        forecastDiv.append(fcTempSpan);
+        forecastDiv.append(fcHumiditySpan);
+        forecastDiv.append(fcWeatherIcon);
+        $(".lightBlueColor").append(forecastDiv);
+      }
 
       citySpan.text(city);
       citySpan.attr("class", "citySpan");

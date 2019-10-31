@@ -1,9 +1,10 @@
 # Mauricio's Random Password Generator
 
 ## Table of Contents
-* [Description](#description)
-* [Usage](#usage)
-* [Credits](#credits)
+
+- [Description](#description)
+- [Usage](#usage)
+- [Credits](#credits)
 
 ## Description
 
@@ -13,7 +14,7 @@ This project consists of three main files: index.html, style.css, and script.js.
 
 There are four confirms afterwards, asking the user whether their new password should contain uppercase letters, lowercase letters, numbers, and/or special characters. Each of the selected character types are placed in an array as strings, saved for the logic that is to come.
 
-Once all prompts and confirms have been answered, the code moves into a 'for' loop. The number of loop interations is equivalent to the password length specified by the user. 
+Once all prompts and confirms have been answered, the code moves into a 'for' loop. The number of loop interations is equivalent to the password length specified by the user.
 
 ```javascript
 while (passwordLength < 8 || passwordLength > 128) { ... }
@@ -21,27 +22,27 @@ while (passwordLength < 8 || passwordLength > 128) { ... }
 
 For each iteration of the loop, a random number will be generated that creates a random index value that selects a character type from the previously mentioned array. The selected string is stored in a variable called 'randCharType'. A series of if and else if statements dependent on the value of randCharString determine what character type we have chosen at random.
 
-Inside each if or else if statement, another random integer will be generated. This integer can be 0 and up to the length of the character array containing the specific character type selected. For example, for the 'if' statement that selects uppercase characters, this integer will be in the range of 0 - 25. 
+Inside each if or else if statement, another random integer will be generated. This integer can be 0 and up to the length of the character array containing the specific character type selected. For example, for the 'if' statement that selects uppercase characters, this integer will be in the range of 0 - 25.
 
 For generating uppercase characters, lowercase characters, and numbers, this project uses the 'String.fromCharCode()' method to convert integers into the character symbol associated with the ASCII character number. Since the values for uppercase characters, lowercase characters, and numbers are consecutive in ASCII, we can use an equation to generate an ascii value in their respective ranges.
 
 ```javascript
 // 48 - 57 are numbers 0 - 9
-var newChar = String.fromCharCode(Math.floor(Math.random()*10)+48);
+var newChar = String.fromCharCode(Math.floor(Math.random() * 10) + 48);
 
 // 64 - 90 are uppercase letters A - Z
-var newChar = String.fromCharCode(Math.floor(Math.random()*26)+64);
+var newChar = String.fromCharCode(Math.floor(Math.random() * 26) + 64);
 
-// 97 - 122 are lowercase letters a - z 
-var newChar = String.fromCharCode(Math.floor(Math.random()*26)+97);
+// 97 - 122 are lowercase letters a - z
+var newChar = String.fromCharCode(Math.floor(Math.random() * 26) + 97);
 ```
 
 For the special characters, an array is used instead. The random number generated for this section of code is an index in the range of this array.
 
 Each new character is appended to a string variable called "password", which later displayed by editing one of the HTML elements via the .innerHTML property.
 
-
 ## Usage
+
 When you first load the website, you will be greeted by this page:
 
 ![Start Page](Assets/Images/start-page.png)
@@ -83,4 +84,5 @@ Once you have answered all prompts/confirms, you will see your password displaye
 ![Password Displayed](Assets/Images/password-displayed.png)
 
 ## Credits
+
 All credits go to Mauricio.
