@@ -37,7 +37,7 @@ To navigate, use the links in the navbar. The links will open a new tab.
 ## Credits
 
 Most credit goes to me, Mauricio Fuentes Gomez.
-Special thanks to my peers and T.As for help.
+Special thanks to my peers and teacher assistants for help.
 
 ## License
 
