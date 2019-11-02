@@ -255,7 +255,7 @@ $(document).on("click", ".newButton", function(event) {
 
 $("#clearSearchHistory").on("click", function(event) {
   event.preventDefault();
-  localStorage.clear();
+  localStorage.removeItem("pastSearchesJSON");
   updateButtons();
 });
 
