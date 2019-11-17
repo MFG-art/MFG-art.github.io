@@ -13,6 +13,7 @@
     "dotenv": "^8.2.0",
     "fs": "0.0.1-security",
     "html-pdf": "^2.2.0",
-    "inquirer": "^7.0.0"
+    "inquirer": "^7.0.0",
+    "util": "^0.12.1"
   }
 }

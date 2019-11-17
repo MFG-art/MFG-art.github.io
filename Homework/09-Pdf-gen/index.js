@@ -1,9 +1,13 @@
 const inquirer = require("inquirer");
-const axios = require("axios");
 const fs = require("fs");
+const util = require("util");
 const pdf = require("html-pdf");
+const axios = require("axios");
+
+const writeFileAsync = util.promisify(fs.writeFile);
 let color;
 
+// prompts the user for their github username and preferred color
 inquirer
   .prompt([
     {
@@ -21,6 +25,7 @@ inquirer
   .then(function(response) {
     const username = response.username;
 
+    //takes the color string that the user entered and return a hex color valued
     switch (response.favcolor) {
       case "red":
         color = "#fcacac";
@@ -34,13 +39,14 @@ inquirer
       case "blue":
         color = "#c2daf2";
         break;
+      case "purple":
+        color = "#ad74e3";
+        break;
       default:
         break;
     }
 
-    console.log(color);
-
-    //AXIOS CALL!
+    //AXIOS CALL! - GETS MOST USER INFO, EXCEPT FOR NUMBER OF STARRED REPOS
     axios.get(`https://api.github.com/users/${username}`).then(function(res) {
       console.log(res);
 
@@ -52,6 +58,7 @@ inquirer
       const blog = res.data.blog;
       const bio = res.data.bio;
       const public_repos = res.data.public_repos;
+      const profileImage = res.data.avatar_url;
       const followers = res.data.followers;
       const following = res.data.following;
 
@@ -64,6 +71,7 @@ inquirer
         blog: blog,
         bio: bio,
         public_repos: public_repos,
+        profileImage: profileImage,
         followers: followers,
         following: following
       };
@@ -72,6 +80,7 @@ inquirer
     });
   });
 
+// AXIOS CALL THAT GETS NUMBER OF STARRED REPOS
 function getStarred(githubData) {
   axios
     .get(`https://api.github.com/users/${githubData.username}/starred?`)
@@ -81,7 +90,15 @@ function getStarred(githubData) {
     });
 }
 
+//
 function generateHTML(githubData) {
+  if (githubData.location) {
+    let locationURL =
+      "https://www.google.com/maps/place/" +
+      encodeURI(githubData.location.trim());
+    githubData.locationURL = locationURL;
+  }
+
   htmlstring = `
   <!DOCTYPE html>
 <html lang="en">
@@ -98,7 +115,7 @@ function generateHTML(githubData) {
         background-color: ${githubData.color};
         color: black;
         height: 75px;
-        font-size: 50px;
+        font-size: 40px;
         font-weight: bolder;
         line-height: 1.5em;
         text-align: center;
@@ -110,7 +127,7 @@ function generateHTML(githubData) {
         width: 90%;
         background-color: ${githubData.color};
         font-family: sans-serif;
-        font-size: 25px;
+        font-size: 20px;
         color: black;
         text-align: center;
         margin: auto;
@@ -134,7 +151,7 @@ function generateHTML(githubData) {
     <div class="main">
       <img
         class="profileImage"
-        src="https://avatars1.githubusercontent.com/u/54040778?v=4"
+        src=${githubData.profileImage}
         alt="profile image"
       />
       <p>Username: ${githubData.username}</p>
@@ -148,7 +165,7 @@ function generateHTML(githubData) {
         Bio: \n${githubData.bio}
       </p>
       <p>Has ${githubData.public_repos} public repos. Out of these, ${githubData.starredAmt} are starred.</p>
-      <p>They have ${githubData.followers} followers and are following 15 ${githubData.following} users.</p>
+      <p>They have ${githubData.followers} followers and are following ${githubData.following} users.</p>
     </div>
 
     <script>
@@ -172,22 +189,21 @@ function generateHTML(githubData) {
 </html>
   `;
 
-  let locationURL =
-    "https://www.google.com/maps/place/" +
-    encodeURI(githubData.location.trim());
-  githubData.locationURL = locationURL;
-  console.log(githubData);
+  async function init() {
+    console.log("hi");
+    try {
+      await writeFileAsync("index.html", htmlstring);
+      var readHtml = fs.readFileSync("index.html", "utf8");
+      var options = { format: "Letter" };
 
-  fs.writeFile("./github-resume.html", htmlstring, err => {
-    if (err) throw err;
-    console.log("The file has been saved!");
-  });
-
-  var html = fs.readFileSync("./github-resume.html", "utf8");
-  var options = { format: "Letter" };
-
-  pdf.create(html, options).toFile("./github-info.pdf", function(err, res) {
-    if (err) return console.log(err);
-    console.log(res); // { filename: '/app/businesscard.pdf' }
-  });
+      pdf.create(readHtml, options).toFile("index.pdf", function(err, res) {
+        if (err) return console.log(err);
+        console.log(res);
+      });
+      console.log("Successfully wrote to index.html");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  init();
 }
