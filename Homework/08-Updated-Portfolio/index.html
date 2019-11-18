@@ -1,38 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
- 
-    <!-- Bootstrap stylesheet -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <!-- custom css link-->
-    <link rel="stylesheet" href="Assets/CSS/style.css"></link>
-
-    <title>Document</title>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <ul class="nav justify-content-center bg-light">
-      <li class="nav-item">
-        <a class="nav-link" href="#" style="color:green;font:30px;">Mauricio Fuentes Gomez</a>
-      </li>
-    </ul>
+    <nav
+      class="header navbar navbar-expand-sm bg-info navbar-dark justify-content-center mb-3"
+    >
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Mauricio Fuentes Gomez</a>
+        </li>
+      </ul>
+    </nav>
 
-    <div class="jumbotron">
-      <h1>Links</h1>
-      <a href="https://github.com/MFG-art" target="_blank">My Github</a>
-      <br>
-      <a href="https://www.linkedin.com/in/mauricio-fuentes-gomez-213235191/" target="_blank">My LinkedIn</a>
+    <div class="container p-3">
+      <h1>Personal Info:</h1>
+      <a href="https://github.com/MFG-art/">Github Profile</a>
+      <br><br>
+      <a href="https://www.linkedin.com/in/mauricio-fuentes-gomez-213235191/">LinkedIn Profile</a>
     </div>
 
-
-        
-    <!-- Bootstrap JS Files -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+    <div class="container">
+      <div class="jumbotron p-3">
+        <h1>Projects</h1>
+        <a href="https://mfg-art.github.io/Project-One-ConcertWise/" target="_blank">Project One: Concertwise</a>
+        <br>
+        <a href="https://github.com/MFG-art/Project-One-ConcertWise" target="_blank">Github Repo</a>
+        <br><br>
+        <a href="https://mfg-art.github.io/Homework/06-Weather/" target="_blank">Weather Dashboard</a>
+        <br>
+        <a href="https://github.com/MFG-art/MFG-art.github.io/tree/master/Homework/06-Weather" target="_blank">Github Repo</a>
+        <br><br>
+        <a href="https://mfg-art.github.io/Homework/03-Javascript/" target="_blank">Secure Password Generator</a>
+        <br>
+        <a href="https://github.com/MFG-art/MFG-art.github.io/tree/master/Homework/03-Javascript" target="_blank">Github Repo</a>
+      </div>
+    </div>
   </body>
 </html>
