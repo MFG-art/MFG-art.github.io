@@ -80,7 +80,6 @@ for (var i = 0; i < passwordLength; i++){
     else if (randCharType === "number") {
         // generates random number (0-9) as ASCII value
         var newChar = String.fromCharCode(Math.floor(Math.random()*10)+48);
-        console.log(newChar + " .ASCII value is: " + AsciiValue);
    
     }
     else {
