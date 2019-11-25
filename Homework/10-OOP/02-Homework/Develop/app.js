@@ -1,12 +1,14 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-const Employee = require("./lib/Employee");
+
 const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
 
-const items = [];
+const promptData = [];
 const teamMembers = [];
+
+let i = 0;
 
 async function prompts() {
   inquirer
@@ -14,23 +16,37 @@ async function prompts() {
       {
         type: "rawlist",
         message: "What is the role of this person?",
-        name: "memberRole",
+        name: "role",
         choices: ["Engineer", "Manager", "Intern"]
       },
       {
         type: "input",
         message: "What is this person's name?",
-        name: "memberName"
+        name: "name"
       },
       {
         type: "input",
         message: "What is this person's ID?",
-        name: "memberID"
+        name: "id"
       },
       {
         type: "input",
         message: "What is this person's email account?",
-        name: "memberEmail"
+        name: "email"
+      },
+      {
+        type: "input",
+        message: function(data) {
+          switch (data.role) {
+            case "Engineer":
+              return "What is this engineer's github account?";
+            case "Manager":
+              return "What is this manager's office number?";
+            case "Intern":
+              return "What is the name of this intern's school?";
+          }
+        },
+        name: "other"
       },
       {
         type: "confirm",
@@ -40,61 +56,51 @@ async function prompts() {
       }
     ])
     .then(function(data) {
-      switch (data.memberRole) {
-        case "Engineer":
-          /*
-          inquirer
-            .prompt({
-              type: "input",
-              name: "github",
-              message: "What is this engineer's github?"
-            })
-            .then(function(d) {
-              data.github = d.github;
-              teamMembers.push(data);
-            });
-            */
-          console.log("engineer");
-          break;
-        case "Intern":
-          /*
-          inquirer
-            .prompt({
-              type: "input",
-              name: "school",
-              message: "What is this intern's school?"
-            })
-            .then(function(d) {
-              data.school = d.school;
-              teamMembers.push(member);
-            });
-            */
-          console.log("intern");
-
-          break;
-        case "Manager":
-          /*
-          inquirer
-            .prompt({
-              type: "input",
-              name: "school",
-              message: "What is this manager's office?"
-            })
-            .then(function(d) {
-              data.office = d.office;
-              teamMembers.push(member);
-            });
-            */
-          console.log("manager");
-          break;
-        default:
-          break;
-      }
-
+      promptData.push(data);
       if (data.newMember) {
         prompts();
+      } else {
+        console.log(promptData);
+        createObjects();
       }
     });
 }
 
 prompts();
+
+function createObjects() {
+  promptData.forEach(element => {
+    switch (element.role) {
+      case "Engineer":
+        var teamMember = new Engineer(
+          element.name,
+          parseInt(element.id),
+          element.email,
+          element.other
+        );
+        teamMembers.push(teamMember);
+        break;
+      case "Manager":
+        var teamMember = new Manager(
+          element.name,
+          parseInt(element.id),
+          element.email,
+          parseInt(element.other)
+        );
+        teamMembers.push(teamMember);
+        break;
+      case "Intern":
+        var teamMember = new Intern(
+          element.name,
+          parseInt(element.id),
+          element.email,
+          element.other
+        );
+        teamMembers.push(teamMember);
+        break;
+      default:
+        break;
+    }
+  });
+  console.log(teamMembers);
+}
