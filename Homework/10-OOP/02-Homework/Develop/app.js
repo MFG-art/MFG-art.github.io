@@ -104,3 +104,9 @@ function createObjects() {
   });
   console.log(teamMembers);
 }
+
+let divTemplate = `
+<div>
+
+
+`;
