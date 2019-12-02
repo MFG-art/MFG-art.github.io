@@ -164,7 +164,7 @@ function createHTML() {
 </body>
 </html>`;
 
-  fs.writeFileSync("./team-members.html", htmlHeader, "utf8");
+  fs.writeFileSync(".output/team-members.html", htmlHeader, "utf8");
 
   promptData.forEach(member => {
     switch (member.role) {
@@ -201,7 +201,7 @@ function createHTML() {
       default:
         break;
     }
-    fs.appendFileSync("./team-members.html", memberDiv, "utf8");
+    fs.appendFileSync(".output/team-members.html", memberDiv, "utf8");
   });
-  fs.appendFileSync("./team-members.html", htmlFooter, "utf8");
+  fs.appendFileSync(".output/team-members.html", htmlFooter, "utf8");
 }
