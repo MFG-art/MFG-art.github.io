@@ -5,13 +5,14 @@
 - [Description](#description)
 - [Usage](#usage)
 - [Credits](#credits)
+- [License](#license)
 
 ## Description
 
 This application displays weather information based on user input.
 The first action that will take place after the page has loaded is a search in your local storage for previous user inputs. If a JSON string with key _"pastSearchesJSON"_ is found, its content (an array containing user inputs as strings) will be parsed out and used to generate search buttons on the left side of the page. Clicking each button is equivalent to typing the name of that city in the search bar and hitting enter.
 
-![London button](assets/first-search-results.png)
+![London button](./assets/first-search-results.png)
 
 **_Clicking the "London" button is equivalent to typing "London" or "london" in the search bar and pressing enter_**
 
@@ -23,32 +24,36 @@ If a user input is valid, it will be trimmed and formatted so that it can be use
 
 The search results contain a five day forecast containing date, temperature, humidity, and weather information. Below this, current weather details are displayed. These details include the temperature in Fahrenheit, the humidity, a weather icon representing current weather conditions, wind speed in m/s and the UV index.
 
-![Weather Results Example](assets/first-search-results.png)
+![Weather Results Example](./assets/first-search-results.png)
 
 ## Usage
 
 This is what the page looks loaded without any past searches stored in local storage:
 
-![Blank Page](assets/clear-page-no-buttons.png)
+![Blank Page](./assets/clear-page-no-buttons.png)
 
 Before you submit your first search, the page will look like this:
 
-![Making First Search](assets/making-first-search.png)
+![Making First Search](./assets/making-first-search.png)
 
 Once you hit enter or click the green submit button, a new button will appear in the left column as well as your search results.
 
-![Weather Results Example](assets/first-search-results.png)
+![Weather Results Example](./assets/first-search-results.png)
 
 When other searches are made, they will append below the most recent search results.
 
-![Multiple Weather Search Results](assets/second-search-results.png)
+![Multiple Weather Search Results](./assets/second-search-results.png)
 
 To clear all search results, click on the gray "Clear Search Results" button.
 
-![Buttons are removed, but the search results are still displayed](assets/search-results-no-buttons.png)
+![Buttons are removed, but the search results are still displayed](./assets/search-results-no-buttons.png)
 
 Clicking on the gray city buttons provides updated weather information.
 
 ## Credits
 
 This webpage was created by me, Mauricio Fuentes Gomez. Bootstrap is released under the MIT license and is copyright 2018 Twitter. Copyright 2019 The jQuery Foundation. jQuery License. Free weather API is provided under the terms of the Creative Commons Attribution-ShareAlike 4.0 Generic License.
+
+## License
+
+MIT License
