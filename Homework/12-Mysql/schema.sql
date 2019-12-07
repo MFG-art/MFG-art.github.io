@@ -17,11 +17,11 @@ title VARCHAR(30) NOT NULL,
 salary DECIMAL(10,2) NOT NULL,
 department_id INT NOT NULL,
 PRIMARY KEY (`id`)
-)
+);
 
 CREATE TABLE departments (
 id INT AUTO_INCREMENT NOT NULL,
 name VARCHAR(30),
 PRIMARY KEY (`id`)
-)
+);
 
