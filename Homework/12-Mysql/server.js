@@ -7,13 +7,14 @@ var connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
   user: "root",
-  password: "Tr3bl3&B@ss",
-  database: "ice_creamDB"
+  password: "B@ss&Tr3bl3",
+  database: "cms_db"
 });
 
 connection.connect(function(err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId + "\n");
+  start();
 });
 
 function start() {
@@ -150,4 +151,4 @@ function updateEmployeeInfo() {
   console.log("7");
 }
 
-start();
+connection.end();
