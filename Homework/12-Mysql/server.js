@@ -68,7 +68,6 @@ function start() {
 }
 
 function getDepartmentInfo() {
-  console.log("1");
   inquirer
     .prompt([
       {
@@ -91,7 +90,6 @@ function getDepartmentInfo() {
 }
 
 function getRoleInfo() {
-  console.log("2");
   inquirer
     .prompt([
       {
@@ -127,7 +125,6 @@ function getRoleInfo() {
 }
 
 function getEmployeeInfo() {
-  console.log("3");
   inquirer
     .prompt([
       {
