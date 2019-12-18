@@ -253,15 +253,20 @@ function updateEmployeeInfo() {
             }
           ])
           .then(function(response) {
+            let firstName = response.first_name;
+            let lastName = response.last_name;
+            let roleID = parseInt(response.role_id);
+            let managerID;
+
+            if (response.manager_id === "") {
+              managerID = null;
+            } else {
+              managerID = parseInt(response.manager_id);
+            }
+
             connection.query(
               "UPDATE employees SET first_name = ?, last_name = ?, role_id = ?, manager_id = ? WHERE id = ?",
-              [
-                response.first_name,
-                response.last_name,
-                response.role_id,
-                response.manager_id,
-                employeeID
-              ],
+              [firstName, lastName, roleID, managerID, employeeID],
               function(err, res) {
                 if (err) throw err;
               }
