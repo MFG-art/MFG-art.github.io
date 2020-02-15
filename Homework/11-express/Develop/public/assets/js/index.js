@@ -9,9 +9,20 @@ var activeNote = {};
 
 // A function for getting all notes from the db
 var getNotes = function() {
+  console.log("getting notes...");
+
   return $.ajax({
     url: "/api/notes",
-    method: "GET"
+    method: "GET",
+    success: function(result) {
+      result = JSON.parse(result);
+      console.log("Getting results from AJAX call: " + result);
+      console.log(typeof result);
+      renderNoteList(result);
+    },
+    error: function(err) {
+      throw err;
+    }
   });
 };
 
@@ -105,14 +116,19 @@ var handleRenderSaveBtn = function() {
 
 // Render's the list of note titles
 var renderNoteList = function(notes) {
+  console.log("Inside renderNoteList");
+  console.log(notes);
+  console.log(typeof notes);
   $noteList.empty();
 
+  console.log("nptes.length: " + notes.length);
   var noteListItems = [];
 
   for (var i = 0; i < notes.length; i++) {
     var note = notes[i];
 
-    var $li = $("<li class='list-group-item'>").data(note);
+    var $li = $("<li class='list-group-item'>");
+    $li.data(note);
     var $span = $("<span>").text(note.title);
     var $delBtn = $(
       "<i class='fas fa-trash-alt float-right text-danger delete-note'>"
@@ -127,9 +143,8 @@ var renderNoteList = function(notes) {
 
 // Gets notes from the db and renders them to the sidebar
 var getAndRenderNotes = function() {
-  return getNotes().then(function(data) {
-    renderNoteList(data);
-  });
+  console.log("Inside getAndRenderNotes");
+  const data = getNotes();
 };
 
 $saveNoteBtn.on("click", handleNoteSave);
