@@ -1,0 +1,21 @@
+.header {
+  text-align: center;
+  font-weight: lighter;
+}
+
+#title-name {
+  margin: 10px;
+  margin-left: 250px;
+  font-weight: lighter;
+  font-size: 30px;
+}
+
+.main {
+  width: 80%;
+  margin: auto;
+  margin-top: 0px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 20px;
+  background-color: lightgray;
+}
