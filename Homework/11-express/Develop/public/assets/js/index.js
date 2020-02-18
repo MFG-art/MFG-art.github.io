@@ -6,6 +6,7 @@ var $noteList = $(".list-container .list-group");
 
 // activeNote is used to keep track of the note in the textarea
 var activeNote = {};
+var database;
 
 // A function for getting all notes from the db
 var getNotes = function() {
@@ -14,11 +15,13 @@ var getNotes = function() {
   return $.ajax({
     url: "/api/notes",
     method: "GET",
-    success: function(result) {
-      result = JSON.parse(result);
-      console.log("Getting results from AJAX call: " + result);
-      console.log(typeof result);
-      renderNoteList(result);
+    success: function(res) {
+      var result = JSON.parse(res);
+      database = result.database;
+      console.log("Getting results from AJAX call: ");
+      console.log(database);
+      console.log(typeof database);
+      renderNoteList(database);
     },
     error: function(err) {
       throw err;
@@ -28,11 +31,21 @@ var getNotes = function() {
 
 // A function for saving a note to the db
 var saveNote = function(note) {
-  return $.ajax({
+  database.push(note);
+  console.log("Inside of saveNote: ");
+  console.log(database);
+  newDatabase = { database };
+  JSON.stringify(newDatabase);
+  $.ajax({
     url: "/api/notes",
-    data: note,
+    data: newDatabase,
     method: "POST"
+  }).then({
+    function(response) {
+      getAndRenderNotes();
+    }
   });
+  getAndRenderNotes();
 };
 
 // A function for deleting a note from the db
@@ -67,10 +80,7 @@ var handleNoteSave = function() {
     text: $noteText.val()
   };
 
-  saveNote(newNote).then(function(data) {
-    getAndRenderNotes();
-    renderActiveNote();
-  });
+  saveNote(newNote);
 };
 
 // Delete the clicked note
@@ -121,7 +131,7 @@ var renderNoteList = function(notes) {
   console.log(typeof notes);
   $noteList.empty();
 
-  console.log("nptes.length: " + notes.length);
+  console.log("notes.length: " + notes.length);
   var noteListItems = [];
 
   for (var i = 0; i < notes.length; i++) {
