@@ -11,5 +11,8 @@
   "dependencies": {
     "express": "^4.16.4",
     "mysql": "^2.16.0"
+  },
+  "engines": {
+    "node": "10.16.3"
   }
 }

@@ -3,7 +3,7 @@ const express = require("express");
 const path = require("path");
 
 var app = express();
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -27,11 +27,36 @@ app.get("*", function(req, res) {
 });
 
 app.post("/api/notes", function(req, res) {
-  database = req.body;
-  databaseString = JSON.stringify(database);
+  databaseString = JSON.stringify(req.body);
   console.log("Inside of the POST route: ");
-  console.log(database);
+  console.log(databaseString);
   fs.writeFileSync(path.join(__dirname, "db/db.json"), databaseString, "utf8");
+
+  // res.json needs to pass something in order to work
+  res.json(false);
+});
+
+app.put("/api/notes", function(req, res) {
+  databaseString = JSON.stringify(req.body);
+  console.log("Inside of the UPDATE route: ");
+  console.log(databaseString);
+  fs.writeFileSync(path.join(__dirname, "db/db.json"), databaseString, "utf8");
+
+  // res.json needs to pass something in order to work
+  res.json(false);
+});
+
+app.delete("/api/notes", function(req, res) {
+  databaseString = JSON.stringify(req.body);
+  console.log("Inside of the DELETE route: ");
+  console.log(databaseString);
+  if (databaseString === "{}") {
+    databaseString = '{"database":[]}';
+  }
+  fs.writeFileSync(path.join(__dirname, "db/db.json"), databaseString, "utf8");
+
+  // res.json needs to pass something in order to work
+  res.json(false);
 });
 
 app.listen(PORT, function() {
