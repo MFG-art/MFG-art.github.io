@@ -2,11 +2,14 @@ const API = {
   async getLastWorkout() {
     let res;
     try {
-      res = await fetch("/api/workouts");
+      res = await fetch("/api/workouts", { virtuals: true });
+      console.log(res.totalDuration);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-    const json = await res.json();
+    const json = await res.json({ virtuals: true });
+
+    console.log(json);
 
     return json[json.length - 1];
   },
@@ -40,5 +43,5 @@ const API = {
     const json = await res.json();
 
     return json;
-  },
+  }
 };
