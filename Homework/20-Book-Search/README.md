@@ -1,133 +1,462 @@
-# Google Books Search
+npm # <img src="https://chriscastle.com/temp/shoppinglist_ss.png" alt="image-20200218151949220" style="zoom:50%;" />
 
-### Overview
+# Shopping List MERN App
 
-In this activity, you'll create a new React-based Google Books Search app. This assignment requires you to create React components, work with helper/util functions, and utilize React lifecycle methods to query and display books based on user searches. You'll also use Node, Express and MongoDB so that users can save books to review or purchase later.
+## Initial Setup MERN
 
-### Commits
+1. Create new folder `shoppinglist` (cd into it)
+2. Initalize your package.json by `npm init` (leave defaults)
+3. Install Packages:
+   **Express** `npm i express`
+   **dotenv** `npm i dotenv`
+   **mongoose** `npm i mongoose`
+   **morgan** `npm i morgan`
+   **body parser** `npm i body-parser`
+4. Install Dev Packages:
+   npm i concurrently --save-dev
+   npm i nodemon --save-dev
+5. Create an index.js file add basic information
 
-Having an active and healthy commit history on GitHub is important for your future job search. It is also extremely important for making sure your work is saved in your repository. If something breaks, committing often ensures you are able to go back to a working version of your code.
+- require express and .env (enviroment variables, db etc)
+- init express and setup port
+- Allow API to be accessed from everywhere (CORS issues)
+- Send test message
+- Setup Express Listener
 
-* Committing often is a signal to employers that you are actively working on your code and learning.
+```javascript
+const express = require("express");
+const logger = require("morgan");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+require("dotenv").config();
 
-  * We use the mantra “commit early and often.”  This means that when you write code that works, add it and commit it!
+const app = express();
+const port = process.env.PORT || 3001;
 
-  * Numerous commits allow you to see how your app is progressing and give you a point to revert to if anything goes wrong.
+app.use(logger("dev"));
 
-* Be clear and descriptive in your commit messaging.
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
-  * When writing a commit message, avoid vague messages like "fixed." Be descriptive so that you and anyone else looking at your repository knows what happened with each commit.
+app.listen(port, () => {
+  console.log("Server running on port " + port);
+});
+```
 
-* We would like you to have well over 200 commits by graduation, so commit early and often!
+Test by running `node index` in terminal (Should just read running on port 3001)
 
-### Submission on BCS
+## Mongoose/Mongo Model
 
-* **Please submit both the deployed Heroku link to your homework AND the link to the Github Repository!**
+1. Install mongoose `npm i mongoose`
+2. Create a models directory off of the root of the shoppinglist app
+3. Create a shoppinglist.js file in that folder
+   - Create Schema
+   - Create Model
 
-### Instructions
+```javascript
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const ShoppingListSchema = new Schema({
+  item: {
+    type: String,
+    required: [true, "The text field is required"]
+  }
+});
 
-* This application requires at minimum 2 pages, check out the following mockup images for each page:
+const ShoppingList = mongoose.model("shoppinglist", ShoppingListSchema);
 
-  * [Search](Search.png) - User can search for books via the Google Books API and render them here. User has the option to "View" a book, bringing them to the book on Google Books, or "Save" a book, saving it to the Mongo database.
+module.exports = ShoppingList;
+```
 
-  * [Saved](Saved.png) - Renders all books saved to the Mongo database. User has an option to "View" the book, bringing them to the book on Google Books, or "Delete" a book, removing it from the Mongo database.
+## Create Express Routes to handle Model
 
-1. Start by using the 07-Ins_Mern example as a base for your application.
+1. Create routes Folder off of the root of the shoppinglist app
 
-2. Add code to connect to a MongoDB database named `googlebooks` using the mongoose npm package.
+2. Create api.js in the routes folder
 
-3. Using mongoose, then create a Book schema.
+   - require express
+   - init express router
+   - setup 3 routes, **get**, **post** and **delete** (req for request, res for response, next for the next function)
 
-4. At a minimum, books should have each of the following fields:
+3. Add find, create and findOneAndDelete Methods in Function
 
-* `title` - Title of the book from the Google Books API
+```javascript
+const express = require("express");
+const router = express.Router();
+const ShoppingList = require("../models/shoppinglist");
 
-* `authors` - The books's author(s) as returned from the Google Books API
+router.get("/shoppinglist", (req, res, next) => {
+  ShoppingList.find({}, "item")
+    .then(data => res.json(data))
+    .catch(next);
+});
 
-* `description` - The book's description as returned from the Google Books API
+router.post("/shoppinglist", (req, res, next) => {
+  if (req.body.item) {
+    ShoppingList.create(req.body)
+      .then(data => res.json(data))
+      .catch(next);
+  } else {
+    res.json({ error: "The item field is empty" });
+  }
+});
 
-* `image` - The Book's thumbnail image as returned from the Google Books API
+router.delete("/shoppinglist/:id", (req, res, next) => {
+  ShoppingList.findOneAndDelete({ _id: req.params.id })
+    .then(data => res.json(data))
+    .catch(next);
+});
 
-* `link` - The Book's information link as returned from the Google Books API
+module.exports = router;
+```
 
-* Creating `documents` in your `books` collection similar to the following:
+## Update index.js to handle routes and connections
 
-    ```js
-    {
-      authors: ["Suzanne Collins"]
-      description: "Set in a dark vision of the near future, a terrifying reality TV show is taking place. Twelve boys and twelve girls are forced to appear in a live event called The Hunger Games. There is only one rule: kill or be killed. When sixteen-year-old Katniss Everdeen steps forward to take her younger sister's place in the games, she sees it as a death sentence. But Katniss has been close to death before. For her, survival is second nature."
-      image: "http://books.google.com/books/content?id=sazytgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-      link: "http://books.google.com/books?id=sazytgAACAAJ&dq=title:The+Hunger+Games&hl=&source=gbs_api"
-      title: "The Hunger Games"
+1. We will need need to libraries, body parse for our post, mongoose for our database, routes and path
+2. Connect to database (we will setup the DB environment variable in the .env we will create next)
+
+```javascript
+const express = require("express");
+const logger = require("morgan");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const routes = require("./routes/api");
+const path = require("path");
+
+require("dotenv").config();
+
+const app = express();
+const port = process.env.PORT || 3001;
+
+mongoose
+  .connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("Database connected successfully"))
+  .catch(err => console.log(err));
+
+app.use(logger("dev"));
+
+app.use(bodyParser.json());
+app.use("/api", routes);
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
+app.listen(port, () => {
+  console.log("Server running on port " + port);
+});
+```
+
+## Setup Remote Mongo Database on mlab / Create .env file
+
+1. Create mlab sandbox provision db through Heroku by setting up an app, going to resources and typing in mlab. Add collection called `shoppingcart` and user if neccessary.
+
+2. Add user and get connection string. IE: mongodb://chrisuser:guestpass123@ds227865.mlab.com:27865/heroku_lwwghkmr
+
+3. Create a `.env` file on your root of the application. Add your db connection to it.
+
+- `DB = 'mongodb://chrisuser:guestpass123@ds227865.mlab.com:27865/heroku_lwwghkmr'`
+  //This will be used my the mongoose connection string.
+
+4. You can also setup a local db instance and replace the .env DB location with your own db
+
+### Test Your Endpoints Using Postman
+
+1. node index.js
+2. Get by using GET http://localhost:3001/api/shoppinglist
+3. Post by using POST http://localhost:3001/api/shoppinglist with json {"item":"cheese"}
+4. Delete by using DELETE localhost:3001/api/shoppinglist/5e4ae903c544711c71125245 or whatever any of the unique items are
+
+## Front End React
+
+In the root directory.
+
+1. Run `create-react-app client` This will setup the basic scaffolding for react.
+2. _note_: dependences from the root folder. Concurrently to run scripts, after one other and nodemon to auto restart the server on change.
+
+3. Within the root **package.json** file add the following between scripts:
+
+```json
+"start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "client": "cd client && npm run start",
+    "seed": "node scripts/seedDB.js",
+    "install": "cd client && npm install",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "npm run build"
+```
+
+**In the new client folder**
+
+Once create-react-app completes. You will need to add a proxy, so you we don't need to specify full urls.
+
+1. Edit the /client version **package.json** file add the following line anywhere on the root node.. (under "private" is fine)
+
+   `"proxy": "http://localhost:3001",`
+
+#### From the **/client** folder, in terminal, install **Axios** `npm i axios`
+
+## React Components
+
+1. Create a folder inside your src folder, called `components`
+2. Within that folder we will be creating 3 files: Input.js, ListItems.js and Item.js
+
+#### Create `Input.js` Functional Component in components
+
+```react
+
+import React, { useState } from 'react';
+import axios from 'axios';
+
+function Input(props) {
+    const [item, setItem] = useState([]);
+    const addItem = () => {
+
+        if (item && item.length > 0) {
+            axios.post('/api/shoppinglist', { 'item': item })
+                .then(res => {
+                    if (res.data) {
+                        props.getItems();
+                        setItem("");
+                    }
+                })
+                .catch(err => console.log(err))
+        } else {
+            console.log('Item required')
+        }
     }
-    ```
 
-5. Create a layout similar to the mockups displayed above. This should be a SPA (Single Page Application) that uses [`react-router-dom`](https://github.com/reactjs/react-router) to navigate, hide and show your React components without changing the route within Express.
+    const handleChange = (e) => {
+        setItem(e.target.value);
+    }
 
-* The layout should include at least two React Components for each page `Search` and `Saved`.
+    return (
+        <div>
+            <input type="text" onChange={handleChange} value={item} />
+            <button onClick={addItem}>add item</button>
+        </div>
+    )
+}
 
-* Feel free to try out alternative CSS framework to Bootstrap.
+export default Input
 
-6. Add the following Express routes for your app:
 
-* `/api/books` (get) - Should return all saved books as JSON.
+```
 
-* `/api/books` (post) - Will be used to save a new book to the database.
+​
 
-* `/api/books/:id` (delete) - Will be used to delete a book from the database by Mongo `_id`.
+#### Create `ListItems.js` Functional Component in components
 
-* `*` (get) - Will load your single HTML page in `client/build/index.html`. Make sure you have this _after_ all other routes are defined.
+​
 
-* Deploy your application to Heroku once complete. **You must use Create React App** and current versions of React and React-Router-Dom for this assignment.
+```react
 
-- - -
+import React from 'react';
 
-### Bonus Live Updates to Saved Books
+const ListItems = ({ items, deleteItem }) => {
 
-* Use React routing and [socket.io](http://socket.io) to create a notification or a component that triggers whenever a user saves an book. Your message should include the title of the saved book.
+    return (
+        <ul>
+            {
+                items &&
+                    items.length > 0 ?
+                    (
+                        items.map(item => {
+                            return (
+                                <li key={item._id} onClick={() => deleteItem(item._id)}>{item.item}</li>
+                            )
+                        })
+                    )
+                    :
+                    (
+                        <li>No Items left</li>
+                    )
+            }
+        </ul>
+    )
+}
 
-  * Say you have multiple browsers open, each one visiting your site. If you save an book in one browser, then all of your browsers should notify you that a new book was saved.
+export default ListItems
+```
 
-  * [Socket.io NPM package](https://www.npmjs.com/package/socket.io)
+#### Create `Item.js` Functional Component in components
 
-### Reminder: Submission on BCS
+```react
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Input from './Input';
+import ListItems from './ListItems';
 
-* **This assignment must be deployed.** * Please submit both the deployed Heroku link to your homework AND the link to the Github Repository!
+function Item() {
+    const [items, setItems] = useState([]);
 
-- - -
+    useEffect(() => {
+        getItems();
+    }, []);
 
-### Minimum Requirements
+    const getItems = () => {
+        axios.get('/api/shoppinglist')
+            .then(res => {
+                if (res.data) {
+                    setItems(res.data)
+                }
+            })
+            .catch(err => console.log(err))
+    }
 
-Attempt to complete homework assignment as described in instructions. If unable to complete certain portions, please pseudocode these portions to describe what remains to be completed. Hosting on Heroku and adding a README.md are required for this homework. In addition, add this homework to your portfolio, more information can be found below.
+    const deleteItem = (id) => {
 
-- - -
+        axios.delete(`/api/shoppinglist/${id}`)
+            .then(res => {
+                if (res.data) {
+                    getItems()
+                }
+            })
+            .catch(err => console.log(err))
+    }
 
-### Create a README.md
+    return (
+        <div>
+            <h1>Shopping List</h1>
+            <Input getItems={getItems} />
+            <ListItems items={items} deleteItem={deleteItem} />
+        </div>
+    );
+}
 
-Add a `README.md` to your repository describing the project. Here are some resources for creating your `README.md`. Here are some resources to help you along the way:
+export default Item;
 
-* [About READMEs](https://help.github.com/articles/about-readmes/)
 
-* [Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
+```
 
-- - -
+#### Update App.js to use Item component:
 
-### Add To Your Portfolio
+```react
+import React from 'react';
 
-After completing the homework please add the piece to your portfolio. Make sure to add a link to your updated portfolio in the comments section of your homework so the TAs can easily ensure you completed this step when they are grading the assignment. To receive an 'A' on any assignment, you must link to it from your portfolio.
+import Item from './components/Item';
+import './App.css';
 
-- - -
+const App = () => {
+  return (
+    <div className="App">
+      <Item />
+    </div>
+  );
+}
 
-### Hosting on Heroku
+export default App;
+```
 
-Now that we have a backend to our applications, we use Heroku for hosting. Please note that while **Heroku is free**, it will request credit card information if you have more than 5 applications at a time or are adding a database.
+​
 
-Please see [Heroku’s Account Verification Information](https://devcenter.heroku.com/articles/account-verification) for more details.
+Run the App:
 
-- - -
+> ## npm start
 
-### One More Thing
+Style to your liking....
 
-If you have any questions about this project or the material we have covered, please post them in the community channels in slack so that your fellow developers can help you! If you're still having trouble, you can come to office hours for assistance from your instructor and TAs.
+### src/App.css (Optional Edits)
 
-**Good Luck!**
+```
+.App {
+  text-align: center;
+  font-size: calc(10px + 2vmin);
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input {
+  height: 40px;
+  width: 50%;
+  border: none;
+  border-bottom: 2px #101113 solid;
+  background: none;
+  font-size: 1.5rem;
+  color: #787a80;
+}
+
+input:focus {
+  outline: none;
+}
+
+button {
+  width: 25%;
+  height: 45px;
+  border: none;
+  margin-left: 10px;
+  font-size: 25px;
+  background: #101113;
+  border-radius: 5px;
+  color: #e7e7e7;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+}
+
+ul {
+  list-style: none;
+  text-align: left;
+  padding: 15px;
+  background: #9dc2ff;
+  border-radius: 5px;
+}
+
+li {
+  padding: 15px;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  background: #bcd1f9;
+  border-radius: 5px;
+  overflow-wrap: break-word;
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 300px) {
+  .App {
+    width: 80%;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+    margin-top: 15px;
+    margin-left: 0;
+  }
+}
+
+@media only screen and (min-width: 640px) {
+  .App {
+    width: 60%;
+  }
+
+  input {
+    width: 50%;
+  }
+
+  button {
+    width: 30%;
+    margin-left: 10px;
+    margin-top: 0;
+  }
+}
+```
