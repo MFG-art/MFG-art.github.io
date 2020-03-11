@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 class Saved extends React.Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class Saved extends React.Component {
       <div>
         {/* NAVBAR CODE */}
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="https://books.google.com/">
             Google Books
           </a>
           <button

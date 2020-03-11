@@ -9,6 +9,8 @@ router.get("/books", (req, res, next) => {
 });
 
 router.post("/books", (req, res, next) => {
+  console.log(req.body);
+  console.log("\n\n\n");
   if (req.body) {
     Book.create(req.body)
       .then(data => res.json(data))
