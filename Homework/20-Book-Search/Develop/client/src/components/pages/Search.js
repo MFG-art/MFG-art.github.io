@@ -24,7 +24,7 @@ class Search extends React.Component {
           "&key=AIzaSyBgy7YzLeK-1f5UQiQV-7P-jrKNAo6iz3k"
       )
       .then(response => {
-        console.log(response.data.items);
+        console.log("These are the results", response.data.items);
         this.setState({
           results: response.data.items
         });
@@ -112,7 +112,15 @@ class Search extends React.Component {
           <div id="resultsDiv">
             {this.state.results
               ? this.state.results.map(result => {
-                  return <Result title={result.volumeInfo.title} />;
+                  return (
+                    <Result
+                      title={result.volumeInfo.title}
+                      authors={result.volumeInfo.authors}
+                      description={result.volumeInfo.description}
+                      image={result.volumeInfo.imageLinks.thumbnail}
+                      link={result.volumeInfo.previewLink}
+                    />
+                  );
                 })
               : null}
           </div>
