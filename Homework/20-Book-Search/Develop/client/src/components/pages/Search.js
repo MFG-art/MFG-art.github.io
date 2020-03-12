@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import Result from "../Result";
 
@@ -13,7 +13,7 @@ class Search extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     console.log("Submitted form");
-    document.getElementById("resultsDiv").innerHTML = "";
+
     const bookQuery = document.getElementById("bookSearch").value.trim();
     console.log("You entered '" + bookQuery + "' into the search bar.");
 

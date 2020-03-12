@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
 class Saved extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 0
+      results: []
     };
   }
 
+  componentDidMount() {
+    console.log("Inside componentDidMount()");
+    axios.get("/api/books").then(results => {
+      console.log(results.data);
+      this.setState({ results: results.data });
+    });
+  }
+
+  handleDelete(event, result) {
+    event.preventDefault();
+    console.log("This is the result: ", result);
+  }
   render() {
     return (
       <div>
@@ -54,6 +67,29 @@ class Saved extends React.Component {
         <div className="jumbotron m-5">
           <h1 className="display-4">Saved Books</h1>
           <p className="lead">Here are your saved books:</p>
+
+          {console.log(this.state.results)}
+          {this.state.results.map(result => {
+            return (
+              <div>
+                <button
+                  onClick={event => {
+                    this.handleDelete(event, result);
+                  }}
+                >
+                  Remove from saved
+                </button>
+                <h2 className="bookTitle">{result.title}</h2>
+                {result.authors && <p>Authors:</p>}
+                {result.authors &&
+                  result.authors.map(author => {
+                    return <p>{author}</p>;
+                  })}
+                {result.description && <p>Description: {result.description}</p>}
+                <img src={result.image} />
+              </div>
+            );
+          })}
         </div>
       </div>
     );

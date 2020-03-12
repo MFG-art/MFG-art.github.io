@@ -9,11 +9,14 @@ router.get("/books", (req, res, next) => {
 });
 
 router.post("/books", (req, res, next) => {
+  console.log("Inside of the /books post route");
   console.log(req.body);
   console.log("\n\n\n");
   if (req.body) {
     Book.create(req.body)
-      .then(data => res.json(data))
+      .then(data => {
+        return res.json(data);
+      })
       .catch(next);
   } else {
     res.json({ error: "The item field is empty" });

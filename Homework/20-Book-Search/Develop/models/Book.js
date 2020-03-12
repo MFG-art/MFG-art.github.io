@@ -3,13 +3,11 @@ const Schema = mongoose.Schema;
 const BookSchema = new Schema({
   authors: [
     {
-      type: String,
-      required: [true, "At least one author is required"]
+      type: String
     }
   ],
   description: {
-    type: String,
-    required: [true, "A description is required"]
+    type: String
   },
   image: {
     type: String,
