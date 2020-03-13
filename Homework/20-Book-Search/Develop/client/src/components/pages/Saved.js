@@ -20,6 +20,16 @@ class Saved extends React.Component {
   handleDelete(event, result) {
     event.preventDefault();
     console.log("This is the result: ", result);
+    const url = "/api/books/" + result._id;
+    console.log(url);
+
+    axios.delete(url).then(results => {
+      console.log(results.data);
+      axios.get("/api/books").then(results => {
+        console.log(results.data);
+        this.setState({ results: results.data });
+      });
+    });
   }
   render() {
     return (
@@ -71,7 +81,14 @@ class Saved extends React.Component {
           {console.log(this.state.results)}
           {this.state.results.map(result => {
             return (
-              <div>
+              <div
+                style={{
+                  margin: "10px",
+                  padding: "20px",
+                  border: "1px solid grey",
+                  borderRadius: "5px"
+                }}
+              >
                 <button
                   onClick={event => {
                     this.handleDelete(event, result);

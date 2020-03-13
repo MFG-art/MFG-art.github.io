@@ -105,6 +105,8 @@ class Search extends React.Component {
           </form>
         </div>
 
+        <div id="alertDiv"></div>
+
         {/* RESULTS JUMBOTRON */}
         <div className="jumbotron m-5">
           <h1 className="display-4">Results</h1>

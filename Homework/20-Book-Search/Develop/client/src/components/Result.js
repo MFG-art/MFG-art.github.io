@@ -6,13 +6,29 @@ class Result extends React.Component {
 
   saveResult(props) {
     console.log("saving result", this.props);
+    document.getElementById("alertDiv").insertAdjacentHTML(
+      "beforeend",
+      `<div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Book Saved Successfully!</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>`
+    );
     axios.post("/api/books", this.props).then(data => {
       console.log(data);
     });
   }
   render() {
     return (
-      <div>
+      <div
+        style={{
+          margin: "10px",
+          padding: "20px",
+          border: "1px solid grey",
+          borderRadius: "5px"
+        }}
+      >
         <button
           className="saveBookBtn"
           onClick={event => {
