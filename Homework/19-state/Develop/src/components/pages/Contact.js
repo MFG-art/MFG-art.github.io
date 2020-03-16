@@ -1,8 +1,10 @@
 import React from "react";
+import NavTabs from "../NavTabs";
 
 function Contact(props) {
   return (
     <div>
+      <NavTabs />
       <h2 class="header">Contact Me</h2>
       <div class="main">
         <ul>

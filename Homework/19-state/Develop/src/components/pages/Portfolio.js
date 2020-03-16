@@ -1,8 +1,10 @@
 import React from "react";
+import NavTabs from "../NavTabs";
 
 function Portfolio() {
   return (
     <div>
+      <NavTabs />
       <h2 class="header">My Portfolio</h2>
       <div class="main">
         {/* Project */}

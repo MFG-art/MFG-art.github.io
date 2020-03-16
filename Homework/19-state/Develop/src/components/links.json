@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Random Password Generator",
+    "github": "https://github.com/MFG-art/MFG-art.github.io/tree/master/Homework/03-Javascript",
+    "deployed": "https://mfg-art.github.io/Homework/03-Javascript/"
+  },
+  {
+    "name": "Daily Planner",
+    "github": "https://github.com/MFG-art/MFG-art.github.io/tree/master/Homework/05-WorkDay",
+    "deployed": "https:mfg-art.github.io/Homework/05-WorkDay"
+  },
+  {
+    "name": "Weather Dashboard",
+    "github": "https://github.com/MFG-art/MFG-art.github.io/tree/master/Homework/06-Weather",
+    "deployed": "https://mfg-art.github.io/Homework/06-Weather"
+  },
+  {
+    "name": "Grain Reaper Chatroom",
+    "github": "https://github.com/MFG-art/The-Boomers",
+    "deployed": "https://the-boomer.herokuapp.com/"
+  }
+]
