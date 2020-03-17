@@ -18,5 +18,10 @@
     "name": "Grain Reaper Chatroom",
     "github": "https://github.com/MFG-art/The-Boomers",
     "deployed": "https://the-boomer.herokuapp.com/"
+  },
+  {
+    "name": "NoteJam",
+    "github": "https://github.com/MFG-art/Music-Studio",
+    "deployed": "https://music-studio.herokuapp.com/"
   }
 ]

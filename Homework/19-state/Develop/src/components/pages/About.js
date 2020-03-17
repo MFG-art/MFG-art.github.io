@@ -5,20 +5,28 @@ function About() {
   return (
     <div>
       <NavTabs />
-      <h2 class="header">About Me</h2>
-      <div class="main">
+      <h2 className="header">About Me</h2>
+      <div className="main">
         <hr />
-        <div class="container">
-          <div class="row">
-            <div class="col-sm">
-              <img src="assets/images/profile-image.jpg"></img>
+        <div className="container">
+          <div className="row">
+            <div className="col-sm">
+              <img
+                src="assets/images/profile-image.jpg"
+                alt="Mauricio grinning and holding a guitar"
+              ></img>
             </div>
-            <div class="col-sm">
+            <div className="col-sm">
               <p>
-                My name is Mauricio. I am currently 21 years old and studying to
-                become a web developer. I want to become a web developer because
-                I enjoy learning how computers worked and being a creative
-                problem-solver.
+                I am am a recent graduate of the University of Minnesota's Full
+                Stack Web Development Program. My client side programming skills
+                include but are not limited to HTML, CSS, JavaScript,
+                Bootstrap.js, and React.js. I am also bilingual (I'm a native
+                Spanish speaker).
+              </p>
+              <p>
+                I also have experience with group projects. I am optimistic,
+                creative, and always willing to learn from others.
               </p>
             </div>
           </div>

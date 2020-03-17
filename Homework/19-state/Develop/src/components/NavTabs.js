@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function NavTabs() {
   return (
-    <ul className="nav nav-tabs">
+    <ul className="nav nav-tabs" style={{ backgroundColor: "white" }}>
       <li className="nav-item">
         <Link
           to="/"
