@@ -70,4 +70,16 @@ module.exports = function(app) {
         console.log(err);
       });
   });
+
+  //
+  app.get("/api/workouts/range", function(req, res) {
+    Workouts.find({ day: { $gte: new Date().getDate() - 7 } })
+      .then(data => {
+        console.log(data);
+        return res.json(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  });
 };
