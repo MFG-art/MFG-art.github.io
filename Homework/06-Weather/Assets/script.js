@@ -48,6 +48,7 @@ function getWeather(userInput) {
   var humidityArray = [];
   var weatherArray = [];
 
+  // This AJAX call returns the latitude and longitude of the city name entered, if it can be found
   $.ajax({
     url: proxy + queryURL,
     method: "GET",
@@ -80,6 +81,7 @@ function getWeather(userInput) {
     }
   });
 
+  // This API call gets the current weather information
   function UVAjaxCall() {
     console.log(lat + ", " + long);
     queryURL = "https://api.openweathermap.org/data/2.5/uvi?";
@@ -103,6 +105,7 @@ function getWeather(userInput) {
     });
   }
 
+  // This AJAX call gets the five week forecast information
   function forecastAjaxCall() {
     queryURL = "https://api.openweathermap.org/data/2.5/forecast?";
     var index = 0;
@@ -111,7 +114,7 @@ function getWeather(userInput) {
       url: proxy + queryURL,
       method: "GET",
       dataType: "json",
-      data: "lat=" + lat + "&lon=" + long + "&appid=" + APIKey,
+      data: "lat=" + lat + "&lon=" + long + "&appid=" + APIKey + "&units=imperial",
       success: function(data) {
         for (var i = 6; i < 39; i += 8) {
           console.log(data.list[i]);
