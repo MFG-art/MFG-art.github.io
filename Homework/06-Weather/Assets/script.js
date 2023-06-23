@@ -87,7 +87,7 @@ function getWeather(userInput) {
       url: proxy + queryURL,
       method: "GET",
       dataType: "json",
-      data: "appid=" + APIKey + "&lat=" + lat + "&lon=" + long,
+      data: "appid=" + APIKey + "&lat=" + lat + "&lon=" + long + "&units=imperial",
       // if ajax call was successful
       success: function(data) {
         responseTrue = true;
